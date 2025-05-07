@@ -18,22 +18,49 @@ s32 main (s32 argumentsCount, c8** arguments) {
 		LOGINFO ("Application Statred!\n");
 	}
 
+	{ // TYPE TESTING
+		if (sizeof (w8) 	!= 1 ) { LOGERROR ("Incorrect type size!"); }
+		if (sizeof (n8) 	!= 1 ) { LOGERROR ("Incorrect type size!"); }
+		if (sizeof (w16) 	!= 2 ) { LOGERROR ("Incorrect type size!"); }
+		if (sizeof (n16) 	!= 2 ) { LOGERROR ("Incorrect type size!"); }
+		if (sizeof (u32r32) != 4 ) { LOGERROR ("Incorrect type size!"); }
+	}
+
 	{ // WAVE TYPE TESTING
 		TIMESTAMP::Timestamp before = TIMESTAMP::GetCurrent ();
-		static r32 val;
+		r32 val;
 
-		for (u64 i = 0; i < 256 * 32; ++i) {
-			auto& data = *(w8*)(u8*)&i;
-			val = data.real32 ();
+		for (u64 i = 0; i < 65536 * 2; ++i) {
+
+			auto& data = *(u8*)&i;
+			//w8r32 (data, val);
+			n8r32 (data, val);
+
+			//auto& data = *(u16*)&i;
+			//w16r32 (data, val);
+			//n16r32 (data, val);
+
+			// //LOGINFO ("i: %f, %llu\n", val, i);
+
+			//if (val <= 0.0f) LOGINFO ("i: %f, %llu\n", val, i);
+			//if (val >= 1.0f) LOGINFO ("i: %f, %llu\n", val, i);
+			//if (val == 0.5f) LOGINFO ("i: %f, %llu\n", val, i);
+
+			//if (val <= -1.0f) LOGINFO ("i: %f, %llu\n", val, i);
+			//if (val >=  1.0f) LOGINFO ("i: %f, %llu\n", val, i);
+			//if (val == -0.5f) LOGINFO ("i: %f, %llu\n", val, i);
+			//if (val ==  0.5f) LOGINFO ("i: %f, %llu\n", val, i);
+			//if (val ==  0.0f) LOGINFO ("i: %f, %llu\n", val, i);
+			
 		}
 
 		r32 timePassed = TIMESTAMP::GetElapsed (before);
 		LOGINFO ("val: %f, %f\n", timePassed, val);
 	}
 
-	LOGINFO  ("Hello World\n");
-	LOGWARN  ("Hello World\n");
-	LOGERROR ("Hello World\n");
+	//LOGINFO  ("Hello World\n");
+	//LOGWARN  ("Hello World\n");
+	//LOGERROR ("Hello World\n");
 
 	{ // BLUE EXIT
 		LOGMEMORY ();
