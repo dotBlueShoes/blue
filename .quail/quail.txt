@@ -5,13 +5,8 @@
 # ---
 
 ^-cmake 	= \ .quail\cmake.txt
-
-# ---
-# CONSTANTS
-# ---
-
-%pr 		= x64-win-release
-%pd 		= x64-win-debug
+^-measure 	= \ .quail\measure.txt
+^-test	 	= \ .quail\test.txt
 
 # ---
 # BASIC
@@ -22,24 +17,3 @@
 
 !code 		= start "" "%vscode_path%" "%_path%"
 !github		= github "%_path%"
-
-# ---
-# BUILDING
-# ---
-
-!bld 		= %shell% "%cmd%\build" '%_path%' '%compilersets%' '%pd%'
-!bbld 		= %shell% "%cmd%\build" '%_path%' '%compilersets%' '%pr%'
-
-# ---
-# EXECUTING
-# ---
-
-!exe 		= %shell% "%cmd%\exe_with_res" '%_path%\build\%pd%\project\test' 'test'
-!eexe 		= %shell% "%cmd%\exe_with_res" '%_path%\build\%pr%\project\test' 'test'
-
-# ---
-# RUNNING
-# ---
-
-|run		= bld,exe
-|rrun		= bbld,eexe

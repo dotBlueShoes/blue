@@ -1,0 +1,22 @@
+&shared.txt
+
+# ---
+# BUILDING
+# ---
+
+!bld 		= %shell% "%cmd%\build" '%_path%' '%compilersets%' '%pd%'
+!bbld 		= %shell% "%cmd%\build" '%_path%' '%compilersets%' '%pr%'
+
+# ---
+# EXECUTING
+# ---
+
+!exe 		= %shell% "%cmd%\exe_with_res" '%_path%\build\%pd%\project\measure' 'measure'
+!eexe 		= %shell% "%cmd%\exe_with_res" '%_path%\build\%pr%\project\measure' 'measure'
+
+# ---
+# RUNNING
+# ---
+
+|run		= bld,exe
+|rrun		= bbld,eexe

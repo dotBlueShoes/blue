@@ -20,3 +20,4 @@ add_compile_definitions (DEBUG_FLAG_POSTLOGGING=${DEBUG_FLAG_POSTLOGGING})
 # --- Project's sources
 add_subdirectory (project/bluelib)
 add_subdirectory (project/test)
+add_subdirectory (project/measure)

@@ -1,4 +1,11 @@
-%cmd			= %_path%\.quail\cmd
+
+# ---
+# CONSTANTS
+# ---
+
+%cmd		= %_path%\.quail\cmd
+%pr 		= x64-win-release
+%pd 		= x64-win-debug
 
 # TODO %_quail% so that my compiler information is stored not in the repo.
 %compilersets	= %_path%\.quail\cmd\clangset
