@@ -17,7 +17,9 @@
 
 
 //  TODO
-// This code could be further optimized via SIMD use.
+// 1. This code could be further optimized via SIMD use.
+// 2. Could introduce `nBitr32` & `wBitr32` methods that take extra param/s
+//  but allow specifing wave bit-range.
 
 
 union w8 {
@@ -92,10 +94,10 @@ void w8r32 (
 		u8 phase 	= (value >> 7);				// Extract sign 	(bit  7  )
 
 		#ifdef WAVE_LUT_OPT
-			u8 phasedWave = phase ? (128 - wave) : wave;	// Brachless
+			u8 phasedWave = phase ? (128 - wave) : wave;	// Branchless
 			real.value = DIV128LUT[phasedWave];				// LUT
 		#else
-			u8 phasedWave = phase ? (~wave - (0x7F)) : wave; 	// Brachless
+			u8 phasedWave = phase ? (~wave - (0x7F)) : wave; 	// Branchless
 			#ifdef WAVE_BITWISE_SCALING_OPT
 				// Weird. Might be faster.
 				real.value = (r32)(phasedWave << 17) * 0x1p-24f;
@@ -130,10 +132,10 @@ void n8r32 (
 		u8 sign 	= (value >> 7);				// Extract sign 	(bit  7  )
 
 		#ifdef WAVE_LUT_OPT
-			u8 phasedWave = phase ? (64 - wave) : wave;		// Brachless
+			u8 phasedWave = phase ? (64 - wave) : wave;		// Branchless
 			real.value = DIV64LUT[phasedWave];				// LUT
 		#else
-			u8 phasedWave = phase ? (~wave - (128 + 64 - 1)) : wave; 	// Brachless
+			u8 phasedWave = phase ? (~wave - (0x80 + 0x40 - 1)) : wave; 	// Branchless
 			#ifdef WAVE_BITWISE_SCALING_OPT
 				// Weird. Might be faster.
 				real.value = (r32)(phasedWave << 18) * 0x1p-24f;
@@ -168,7 +170,7 @@ void w16r32 (
 		u16 wave 	= value & 0x7FFF;			// Extract wave 	(bits 0-14)
 		u16 phase 	= (value >> 15);			// Extract sign 	(bit  15  )
 
-		u16 phasedWave = phase ? (~wave - (0x7FFF)) : wave; 	// Brachless
+		u16 phasedWave = phase ? (~wave - (0x7FFF)) : wave; 	// Branchless
 		#ifdef WAVE_BITWISE_SCALING_OPT
 			// Weird. Might be faster.
 			real.value = (r32)(phasedWave << 9) * 0x1p-24f;
@@ -201,7 +203,7 @@ void n16r32 (
 		u16 phase 	= (value >> 14) & 1;		// Extract phase 	(bit  14  )
 		u16 sign 	= (value >> 15);			// Extract sign 	(bit  15  )
 
-		u16 phasedWave = phase ? (~wave - (0x8000 + 0x4000 - 1)) : wave; 	// Brachless
+		u16 phasedWave = phase ? (~wave - (0x8000 + 0x4000 - 1)) : wave; 	// Branchless
 		#ifdef WAVE_BITWISE_SCALING_OPT
 			// Weird. Might be faster.
 			real.value = (r32)(phasedWave << 10) * 0x1p-24f;
