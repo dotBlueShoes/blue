@@ -76,14 +76,14 @@ union u32r32 {
 //  ABOUT
 // 8bit Wave to 32bit Real
 void w8r32 (
-    IN 		const u8& 	wave_in,
-    OUT 	r32& 		wave_out
+    IN 		const u8& 	waveIn,
+    OUT 	r32& 		waveOut
 ) {
 
     const r32 STEP7 = 1.0f / 128.0f;
 
-    auto& real = *(u32r32*)&wave_out;
-    const auto& base = *(const w8*)&wave_in;
+    auto& real = *(u32r32*)&waveOut;
+    const auto& base = *(const w8*)&waveIn;
 
     #ifdef WAVE_NO_OPT
         if (base.bitmask.phase) { real.value = (~base.bitmask.wave + 128 + 1) * STEP7; } // 129 -> 255
@@ -112,14 +112,14 @@ void w8r32 (
 //  ABOUT
 // 8bit Normal to 32bit Real
 void n8r32 (
-    IN 		const u8& 	wave_in,
-    OUT 	r32& 		wave_out
+    IN 		const u8& 	waveIn,
+    OUT 	r32& 		waveOut
 ) {
 
     const r32 STEP6 = 1.0f / 64.0f;
 
-    auto& real = *(u32r32*)&wave_out;
-    const auto& base = *(const n8*)&wave_in;
+    auto& real = *(u32r32*)&waveOut;
+    const auto& base = *(const n8*)&waveIn;
 
     #ifdef WAVE_NO_OPT
         if (base.bitmask.phase) { real.value = (~base.bitmask.wave + 64 + 1) * STEP6; } // 65 -> 127
@@ -153,14 +153,14 @@ void n8r32 (
 //  ABOUT
 // 16bit Wave to 32bit Real
 void w16r32 (
-    IN 		const u16& 	wave_in,
-    OUT 	r32& 		wave_out
+    IN 		const u16& 	waveIn,
+    OUT 	r32& 		waveOut
 ) {
 
     const r32 STEP15 = 1.0f / 32768.0f;
 
-    auto& real = *(u32r32*)&wave_out;
-    const auto& base = *(w16*)&wave_in;
+    auto& real = *(u32r32*)&waveOut;
+    const auto& base = *(w16*)&waveIn;
 
     #ifdef WAVE_NO_OPT
         if (base.bitmask.phase) { real.value = (~base.bitmask.wave + 32768 + 1) * STEP15; } // 32769 -> 65 535
@@ -184,14 +184,14 @@ void w16r32 (
 //  ABOUT
 // 16bit Normal to 32bit Real
 void n16r32 (
-    IN 		const u16& 	wave_in,
-    OUT 	r32& 		wave_out
+    IN 		const u16& 	waveIn,
+    OUT 	r32& 		waveOut
 ) {
 
     const r32 STEP14 = 1.0f / 16384.0f;
 
-    auto& real = *(u32r32*)&wave_out;
-    const auto& base = *(n16*)&wave_in;
+    auto& real = *(u32r32*)&waveOut;
+    const auto& base = *(n16*)&waveIn;
 
     #ifdef WAVE_NO_OPT
         if (base.bitmask.phase) { real.value = (~base.bitmask.wave + 16384 + 1) * STEP14; } // 16385 -> 32767

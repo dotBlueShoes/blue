@@ -21,6 +21,14 @@ if (NOT ${OPENAL_SHARED_LIBRARY})
 endif ()
 
 
+#--- Enable testing
+enable_testing ()
+
+#--- Add GoogleTest
+add_subdirectory(${CMAKE_SOURCE_DIR}/external/googletest ${CMAKE_BINARY_DIR}/googletest-build)
+#add_subdirectory (../../external/googletest)
+
+
 # --- Info Build Type
 message (STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
@@ -54,6 +62,12 @@ target_include_directories (
 
 # --- LIBS.
 target_link_libraries (${PROJECT_NAME} BLUELIB)
+target_link_libraries (${PROJECT_NAME} gtest gtest_main)
+
+
+# Register the test with CTest
+include (GoogleTest)
+gtest_discover_tests (${PROJECT_NAME})
 
 
 # --- Creates a 'symlink' for resources in builds directory.
