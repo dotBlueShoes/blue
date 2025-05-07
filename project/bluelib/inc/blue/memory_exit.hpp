@@ -17,82 +17,82 @@
 
 #ifdef MEMORY_TYPE_NOT_SIZED
 
-	namespace MEMORY::EXIT {
+    namespace MEMORY::EXIT {
 
-		using DeleteFunction = void (*) (DEALLOC_ARGS);
+        using DeleteFunction = void (*) (DEALLOC_ARGS);
 
-		u8 memoryCounter = 0;
+        u8 memoryCounter = 0;
 
-		DeleteFunction functions [MEMORY_EXIT_SIZE];
-		void* memories	[MEMORY_EXIT_SIZE];
+        DeleteFunction functions [MEMORY_EXIT_SIZE];
+        void* memories	[MEMORY_EXIT_SIZE];
 
-		void ATEXIT () {
-			for (u8 i = memoryCounter; i != 0; --i) {
-				auto& func		= functions	[i - 1];
-				auto& memory	= memories	[i - 1];
+        void ATEXIT () {
+            for (u8 i = memoryCounter; i != 0; --i) {
+                auto& func		= functions	[i - 1];
+                auto& memory	= memories	[i - 1];
 
-				auto&& _func = (DeleteFunction)func;
-				_func (memory);
-			}
-		}
+                auto&& _func = (DeleteFunction)func;
+                _func (memory);
+            }
+        }
 
-		void PUSH (
-			DeleteFunction function, 
-			void* memory
-		) {
-			functions[memoryCounter] 	= function;
-			memories[memoryCounter] 	= memory;
+        void PUSH (
+            DeleteFunction function, 
+            void* memory
+        ) {
+            functions[memoryCounter] 	= function;
+            memories[memoryCounter] 	= memory;
 
-			++memoryCounter;
-		}
+            ++memoryCounter;
+        }
 
-		void POP () {
-			--memoryCounter;
-		}
+        void POP () {
+            --memoryCounter;
+        }
 
-	}
+    }
 
 #else
 
-	namespace MEMORY::EXIT {
+    namespace MEMORY::EXIT {
 
-		u8 memoryCounter = 0;
+        u8 memoryCounter = 0;
 
-		using DeleteFunction = void (*) (DEALLOC_ARGS);
+        using DeleteFunction = void (*) (DEALLOC_ARGS);
 
-		DeleteFunction functions [MEMORY_EXIT_SIZE];
-		void* memories	[MEMORY_EXIT_SIZE];
-		u32   sizes		[MEMORY_EXIT_SIZE];
+        DeleteFunction functions [MEMORY_EXIT_SIZE];
+        void* memories	[MEMORY_EXIT_SIZE];
+        u32   sizes		[MEMORY_EXIT_SIZE];
 
-		void ATEXIT () {
-			for (u8 i = memoryCounter; i != 0; --i) {
-				auto& func		= functions	[i - 1];
-				auto& memory	= memories	[i - 1];
-				auto& size		= sizes 	[i - 1];
+        void ATEXIT () {
+            for (u8 i = memoryCounter; i != 0; --i) {
+                auto& func		= functions	[i - 1];
+                auto& memory	= memories	[i - 1];
+                auto& size		= sizes 	[i - 1];
 
-				auto&& _func = (DeleteFunction)func;
-				_func (size, memory);
-			}
-		}
+                auto&& _func = (DeleteFunction)func;
+                _func (size, memory);
+            }
+        }
 
-		
-		void PUSH (
-			DeleteFunction function, 
-			MEMORY_TYPE size, 
-			void* memory
-		) {
-			functions[memoryCounter] 	= function;
-			memories[memoryCounter] 	= memory;
-			sizes[memoryCounter] 		= size;
+        
+        void PUSH (
+            DeleteFunction function, 
+            MEMORY_TYPE size, 
+            void* memory
+        ) {
+            functions[memoryCounter] 	= function;
+            memories[memoryCounter] 	= memory;
+            sizes[memoryCounter] 		= size;
 
-			++memoryCounter;
-		}
+            ++memoryCounter;
+        }
 
-		void POP () {
-			--memoryCounter;
-		}
+        void POP () {
+            --memoryCounter;
+        }
 
-	}
+    }
 
 #endif
 

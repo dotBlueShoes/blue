@@ -6,11 +6,11 @@
 
 // IN CASE OF AN EMPTY BUILD HAVE ALL ON BY DEFAULT.
 #ifndef DEBUG_TYPE
-	#define DEBUG_FLAG_LOGGING 		1
-	#define DEBUG_FLAG_MEMORY 		2
-	#define DEBUG_FLAG_CLOCKS 		4
-	#define DEBUG_FLAG_POSTLOGGING 	8
-	#define DEBUG_TYPE 				15 // ALL ON
+    #define DEBUG_FLAG_LOGGING 		1
+    #define DEBUG_FLAG_MEMORY 		2
+    #define DEBUG_FLAG_CLOCKS 		4
+    #define DEBUG_FLAG_POSTLOGGING 	8
+    #define DEBUG_TYPE 				15 // ALL ON
 #endif
 
 #define DDEBUG(type) DEBUG_TYPE & type

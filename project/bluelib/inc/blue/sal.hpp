@@ -22,23 +22,23 @@
 
 #ifdef OSWINDOWS
 
-	#include <sal.h>
+    #include <sal.h>
 
-	// SAL - FUNCTION ARGUMENT IN 
-	#define IN _In_
-	// SAL - FUNCTION ARGUMENT OUT 
-	#define OUT _Out_
-	// SAL - FUNCTION ARGUMENT IN & OUT
-	#define INOUT _Inout_
+    // SAL - FUNCTION ARGUMENT IN 
+    #define IN _In_
+    // SAL - FUNCTION ARGUMENT OUT 
+    #define OUT _Out_
+    // SAL - FUNCTION ARGUMENT IN & OUT
+    #define INOUT _Inout_
 
 #else
 
-	// SAL - FUNCTION ARGUMENT IN 
-	#define IN
-	// SAL - FUNCTION ARGUMENT OUT 
-	#define OUT
-	// SAL - FUNCTION ARGUMENT IN & OUT
-	#define INOUT
+    // SAL - FUNCTION ARGUMENT IN 
+    #define IN
+    // SAL - FUNCTION ARGUMENT OUT 
+    #define OUT
+    // SAL - FUNCTION ARGUMENT IN & OUT
+    #define INOUT
 
 #endif
 

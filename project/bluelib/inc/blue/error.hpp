@@ -7,27 +7,27 @@
 #include "windows/types.hpp"
 
 #define ERRORWIN(text) { \
-	MSGERROR (text); \
-	MEMORY::EXIT::ATEXIT (); \
-	exit (-1); \
+    MSGERROR (text); \
+    MEMORY::EXIT::ATEXIT (); \
+    exit (-1); \
 }
 
 #define ERROR(...) { \
-	LOGERROR (__VA_ARGS__); \
-	 \
-	MEMORY::EXIT::ATEXIT (); \
-	LOGMEMORY (); \
-	DEBUG (DEBUG_FLAG_LOGGING) putc ('\n', stdout); \
-	 \
-	exit (-1); \
+    LOGERROR (__VA_ARGS__); \
+     \
+    MEMORY::EXIT::ATEXIT (); \
+    LOGMEMORY (); \
+    DEBUG (DEBUG_FLAG_LOGGING) putc ('\n', stdout); \
+     \
+    exit (-1); \
 }
 
 #define WERROR(...) { \
-	LOGWERROR (__VA_ARGS__); \
-	 \
-	MEMORY::EXIT::ATEXIT (); \
-	LOGMEMORY (); \
-	DEBUG (DEBUG_FLAG_LOGGING) putc ('\n', stdout); \
-	 \
-	exit (-1); \
+    LOGWERROR (__VA_ARGS__); \
+     \
+    MEMORY::EXIT::ATEXIT (); \
+    LOGMEMORY (); \
+    DEBUG (DEBUG_FLAG_LOGGING) putc ('\n', stdout); \
+     \
+    exit (-1); \
 }

@@ -43,7 +43,7 @@ using arr64 = array_t<T, u32, length>;
 
 template<class T>
 struct pair {
-	T x, y;
+    T x, y;
 };
 
 
@@ -57,27 +57,27 @@ struct pair {
 //
 
 void IsEqualS3_8 (
-	INOUT	u8& 				condition,
-	IN 		const u8* const& 	a,
-	IN		const u8* const& 	b
+    INOUT	u8& 				condition,
+    IN 		const u8* const& 	a,
+    IN		const u8* const& 	b
 ) {
-	for (u32 i = 0; condition == 0; ++i) {
-		condition += (a[i]	!= b[i]) << 2;  // 4
-		condition += a[i]	== '\0';		// 1
-		condition += b[i]	== '\0';		// 1
-	}
+    for (u32 i = 0; condition == 0; ++i) {
+        condition += (a[i]	!= b[i]) << 2;  // 4
+        condition += a[i]	== '\0';		// 1
+        condition += b[i]	== '\0';		// 1
+    }
 }
 
 void IsEqualS3_16 (
-	INOUT	u8& 				condition,
-	IN		const u16* const& 	a,
-	IN		const u16* const& 	b
+    INOUT	u8& 				condition,
+    IN		const u16* const& 	a,
+    IN		const u16* const& 	b
 ) {
-	for (u32 i = 0; condition == 0; ++i) {
-		condition += (a[i]	!= b[i]) << 2;  // 4
-		condition += a[i]	== '\0';		// 1
-		condition += b[i]	== '\0';		// 1
-	}
+    for (u32 i = 0; condition == 0; ++i) {
+        condition += (a[i]	!= b[i]) << 2;  // 4
+        condition += a[i]	== '\0';		// 1
+        condition += b[i]	== '\0';		// 1
+    }
 }
 
 //  TODO
@@ -86,10 +86,10 @@ void IsEqualS3_16 (
 //
 
 void ToLowCase (
-	INOUT	c8* const& data,
-	IN		const u32& length
+    INOUT	c8* const& data,
+    IN		const u32& length
 ) {
-	for (u32 i = 0; i < length; ++i) {
-		data[i] = tolower (data[i]);
-	}
+    for (u32 i = 0; i < length; ++i) {
+        data[i] = tolower (data[i]);
+    }
 }
