@@ -24,9 +24,9 @@ endif ()
 #--- Enable testing
 enable_testing ()
 
+
 #--- Add GoogleTest
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/googletest ${CMAKE_BINARY_DIR}/googletest-build)
-#add_subdirectory (../../external/googletest)
 
 
 # --- Info Build Type

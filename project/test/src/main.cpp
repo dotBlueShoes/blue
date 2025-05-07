@@ -1,8 +1,6 @@
 ﻿// Created 2025.05.07 by Matthew Strumiłło (dotBlueShoes)
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
-
-//
 #define WAVE_NO_OPT // this is the fastest on debug build
 //#define WAVE_LUT_OPT
 //#define WAVE_BITWISE_SCALING_OPT
@@ -12,70 +10,88 @@
 //
 #include <gtest/gtest.h>
 
-s32 add(s32 a, s32 b) { return a + b; }
+TEST (TypeSize, u8)  { EXPECT_EQ (sizeof  (u8), 1); }
+TEST (TypeSize, u16) { EXPECT_EQ (sizeof (u16), 2); }
+TEST (TypeSize, u32) { EXPECT_EQ (sizeof (u32), 4); }
+TEST (TypeSize, u64) { EXPECT_EQ (sizeof (u64), 8); }
 
-TEST (MathTests, Addition) {
-    EXPECT_EQ (add(2, 3), 5);
+TEST (TypeSize, s8)  { EXPECT_EQ (sizeof  (s8), 1); }
+TEST (TypeSize, s16) { EXPECT_EQ (sizeof (s16), 2); }
+TEST (TypeSize, s32) { EXPECT_EQ (sizeof (s32), 4); }
+TEST (TypeSize, s64) { EXPECT_EQ (sizeof (s64), 8); }
+
+TEST (TypeSize, c8)  { EXPECT_EQ (sizeof  (c8), 1); }
+TEST (TypeSize, c16) { EXPECT_EQ (sizeof (c16), 2); }
+TEST (TypeSize, r32) { EXPECT_EQ (sizeof (r32), 4); }
+TEST (TypeSize, r64) { EXPECT_EQ (sizeof (r64), 8); }
+
+TEST (TypeSize, w8)     { EXPECT_EQ (sizeof     (w8), 1); }
+TEST (TypeSize, w16)    { EXPECT_EQ (sizeof    (w16), 2); }
+TEST (TypeSize, u32r32) { EXPECT_EQ (sizeof (u32r32), 4); }
+
+
+TEST (MathNormal, u8Casting) {
+    const u8 i = 16; // 0.25f
+    
+    r32 r;
+    n8r32 (i, r);
+
+    // Tolerance of ±0.00000
+    EXPECT_NEAR (r, 0.25f, 0);
 }
 
 
-//s32 main (s32 argumentsCount, c8** arguments) {
-//
-//	{ // BLUE START
-//		TIMESTAMP_BEGIN = TIMESTAMP::GetCurrent ();
-//		DEBUG (DEBUG_FLAG_LOGGING) putc ('\n', stdout); // Align fututre debug-logs
-//		LOGINFO ("Application Statred!\n");
-//	}
-//
-//	{ // TYPE TESTING
-//		if (sizeof (w8) 	!= 1 ) { LOGERROR ("Incorrect type size!"); }
-//		if (sizeof (n8) 	!= 1 ) { LOGERROR ("Incorrect type size!"); }
-//		if (sizeof (w16) 	!= 2 ) { LOGERROR ("Incorrect type size!"); }
-//		if (sizeof (n16) 	!= 2 ) { LOGERROR ("Incorrect type size!"); }
-//		if (sizeof (u32r32) != 4 ) { LOGERROR ("Incorrect type size!"); }
-//	}
-//
-//	{ // WAVE TYPE TESTING
-//		TIMESTAMP::Timestamp before = TIMESTAMP::GetCurrent ();
-//		r32 val;
-//
-//		for (u64 i = 0; i < 65536 * 2; ++i) {
-//
-//			auto& data = *(u8*)&i;
-//			//w8r32 (data, val);
-//			n8r32 (data, val);
-//
-//			//auto& data = *(u16*)&i;
-//			//w16r32 (data, val);
-//			//n16r32 (data, val);
-//
-//			// //LOGINFO ("i: %f, %llu\n", val, i);
-//
-//			//if (val <= 0.0f) LOGINFO ("i: %f, %llu\n", val, i);
-//			//if (val >= 1.0f) LOGINFO ("i: %f, %llu\n", val, i);
-//			//if (val == 0.5f) LOGINFO ("i: %f, %llu\n", val, i);
-//
-//			//if (val <= -1.0f) LOGINFO ("i: %f, %llu\n", val, i);
-//			//if (val >=  1.0f) LOGINFO ("i: %f, %llu\n", val, i);
-//			//if (val == -0.5f) LOGINFO ("i: %f, %llu\n", val, i);
-//			//if (val ==  0.5f) LOGINFO ("i: %f, %llu\n", val, i);
-//			//if (val ==  0.0f) LOGINFO ("i: %f, %llu\n", val, i);
-//			
-//		}
-//
-//		r32 timePassed = TIMESTAMP::GetElapsed (before);
-//		LOGINFO ("val: %f, %f\n", timePassed, val);
-//	}
-//
-//	//LOGINFO  ("Hello World\n");
-//	//LOGWARN  ("Hello World\n");
-//	//LOGERROR ("Hello World\n");
-//
-//	{ // BLUE EXIT
-//		LOGMEMORY ();
-//		LOGINFO ("Finalized Execution\n");
-//		DEBUG (DEBUG_FLAG_LOGGING) putc ('\n', stdout); // Align debug-logs
-//	}
-//
-//	return 0;
-//}
+TEST (MathNormal, Addition) {
+    const u8 a = 16; // 0.25f
+    const u8 b = 16; // 0.25f
+
+    r32 normalA, normalB, normalC;
+    n8r32 (a, normalA);
+    n8r32 (b, normalB);
+    n8r32 (a + b, normalC);
+
+    // Tolerance of ±0.00000
+    EXPECT_NEAR (normalA + normalB, normalC, 0);  
+}
+
+
+TEST (MathWave, u8Casting) {
+    const u8 i = 32; // 0.25f
+    
+    r32 r;
+    w8r32 (i, r);
+
+    // Tolerance of ±0.00000
+    EXPECT_NEAR (r, 0.25f, 0); 
+}
+
+
+TEST (MathWave, Addition) {
+    const u8 a = 32; // 0.25f
+    const u8 b = 32; // 0.25f
+    
+    r32 normalA, normalB, normalC;
+    w8r32 (a, normalA);
+    w8r32 (b, normalB);
+    w8r32 (a + b, normalC);
+
+    // Tolerance of ±0.00000
+    EXPECT_NEAR (normalA + normalB, normalC, 0);   
+}
+
+
+TEST (Environment, Initialization) {
+
+    { // BLUE START
+        TIMESTAMP_BEGIN = TIMESTAMP::GetCurrent ();
+        DEBUG (DEBUG_FLAG_LOGGING) putc ('\n', stdout); // Align fututre debug-logs
+        LOGINFO ("Application Statred!\n");
+    }
+
+    { // BLUE EXIT
+        LOGMEMORY ();
+        LOGINFO ("Finalized Execution\n");
+        DEBUG (DEBUG_FLAG_LOGGING) putc ('\n', stdout); // Align debug-logs
+    }
+
+}

@@ -21,14 +21,8 @@ if (NOT ${OPENAL_SHARED_LIBRARY})
 endif ()
 
 
-#--- Enable testing
-#enable_testing ()
-
 # Add GoogleBenchmark
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/benchmark ${CMAKE_BINARY_DIR}/benchmark-build)
-
-#--- Add GoogleTest
-#add_subdirectory(${CMAKE_SOURCE_DIR}/external/googletest ${CMAKE_BINARY_DIR}/googletest-build)
 
 
 # --- Info Build Type
@@ -65,12 +59,7 @@ target_include_directories (
 # --- LIBS.
 target_link_libraries (${PROJECT_NAME} BLUELIB)
 target_link_libraries (${PROJECT_NAME} benchmark::benchmark)
-#target_link_libraries (${PROJECT_NAME} gtest gtest_main)
 
-
-# Register the test with CTest
-#include (GoogleTest)
-#gtest_discover_tests (${PROJECT_NAME})
 
 # Add pthread on Unix-like systems
 if (UNIX AND NOT APPLE)
