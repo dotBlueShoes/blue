@@ -7,6 +7,9 @@ project (blue-all VERSION 1.0.0 LANGUAGES C CXX)
 list (APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include (properties)
 
+option (BLUE_ENABLE_TESTS       "Enable unit tests" OFF)
+option (BLUE_ENABLE_BENCHMARKS  "Enable benchmarks" OFF)
+
 # --- Dependencies
 add_subdirectory (dependencies)
 
@@ -19,5 +22,11 @@ add_compile_definitions (DEBUG_FLAG_POSTLOGGING=${DEBUG_FLAG_POSTLOGGING})
 
 # --- Project's sources
 add_subdirectory (project/bluelib)
-add_subdirectory (project/test)
-add_subdirectory (project/measure)
+
+if (BLUE_ENABLE_TESTS)
+    add_subdirectory (project/test)
+endif ()
+
+if (BLUE_ENABLE_BENCHMARKS)
+    add_subdirectory (project/measure)
+endif ()

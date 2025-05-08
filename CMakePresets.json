@@ -19,6 +19,8 @@
             "inherits": "windows-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
+                "BLUE_ENABLE_BENCHMARKS": "ON",
+                "BLUE_ENABLE_TESTS": "ON",
                 "PROFILE": {
                     "type": "INT",
                     "value": "1"
@@ -31,6 +33,8 @@
             "inherits": "windows-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
+                "BLUE_ENABLE_BENCHMARKS": "ON",
+                "BLUE_ENABLE_TESTS": "ON",
                 "PROFILE": {
                     "type": "INT",
                     "value": "2"
