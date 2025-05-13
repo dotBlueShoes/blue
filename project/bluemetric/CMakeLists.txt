@@ -1,5 +1,25 @@
-# --- Define a 'subproject'
-project (test VERSION 1.0.0 LANGUAGES C CXX)
+cmake_minimum_required (VERSION 3.27 FATAL_ERROR)
+project (BLUEMETRIC VERSION 1.0.0 LANGUAGES C CXX)
+
+
+# Detect whether we're in sub-project or main-project mode.
+if (CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
+
+    message ("-- Constructing BLUEMETRIC in main-project mode!")
+
+    # --- Add global settings (for all of the subprojects)
+    list (APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake)
+    include (properties)
+
+    # --- Dependencies directory.
+    add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/../../dependencies ${CMAKE_BINARY_DIR}/../dependencies)
+    add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/../bluelib ${CMAKE_BINARY_DIR}/../bluelib)
+
+    # Add Google-Benchmark
+    add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/../../external/googletest ${CMAKE_BINARY_DIR}/../googletest)
+    add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/../../external/benchmark ${CMAKE_BINARY_DIR}/../googlebenchmark)
+
+endif ()
 
 
 # --- Add header files
@@ -19,14 +39,6 @@ if (NOT ${OPENAL_SHARED_LIBRARY})
 	add_compile_definitions (AL_LIBTYPE_STATIC)
 
 endif ()
-
-
-#--- Enable testing
-enable_testing ()
-
-
-#--- Add GoogleTest
-add_subdirectory(${CMAKE_SOURCE_DIR}/external/googletest ${CMAKE_BINARY_DIR}/googletest-build)
 
 
 # --- Info Build Type
@@ -62,12 +74,13 @@ target_include_directories (
 
 # --- LIBS.
 target_link_libraries (${PROJECT_NAME} BLUELIB)
-target_link_libraries (${PROJECT_NAME} gtest gtest_main)
+target_link_libraries (${PROJECT_NAME} benchmark::benchmark)
 
 
-# Register the test with CTest
-include (GoogleTest)
-gtest_discover_tests (${PROJECT_NAME})
+# Add pthread on Unix-like systems
+if (UNIX AND NOT APPLE)
+    target_link_libraries (${PROJECT_NAME} pthread)
+endif ()
 
 
 # --- Creates a 'symlink' for resources in builds directory.

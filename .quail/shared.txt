@@ -3,6 +3,7 @@
 # CONSTANTS
 # ---
 
+%color		= #0000ff
 %cmd		= %_path%\.quail\cmd
 %pr 		= x64-win-release
 %pd 		= x64-win-debug

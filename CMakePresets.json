@@ -21,6 +21,7 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "BLUE_ENABLE_BENCHMARKS": "ON",
                 "BLUE_ENABLE_TESTS": "ON",
+                "BLUE_ENABLE_CCC": "ON",
                 "PROFILE": {
                     "type": "INT",
                     "value": "1"
@@ -35,6 +36,7 @@
                 "CMAKE_BUILD_TYPE": "Release",
                 "BLUE_ENABLE_BENCHMARKS": "ON",
                 "BLUE_ENABLE_TESTS": "ON",
+                "BLUE_ENABLE_CCC": "ON",
                 "PROFILE": {
                     "type": "INT",
                     "value": "2"

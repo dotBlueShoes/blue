@@ -11,8 +11,8 @@
 # EXECUTING
 # ---
 
-!exe 		= %shell% "%cmd%\exe_with_res" '%_path%\build\%pd%\project\test' 'test'
-!eexe 		= %shell% "%cmd%\exe_with_res" '%_path%\build\%pr%\project\test' 'test'
+!exe 		= %shell% "%cmd%\exe_with_res" '%_path%\build\%pd%\project\bluecycle' 'bluecycle'
+!eexe 		= %shell% "%cmd%\exe_with_res" '%_path%\build\%pr%\project\bluecycle' 'bluecycle'
 
 # ---
 # RUNNING
