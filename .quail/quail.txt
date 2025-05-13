@@ -10,7 +10,6 @@
 ^-cycle	 	= \ .quail\cycle.txt
 ^-unit	 	= \ .quail\unit.txt
 
-
 # ---
 # BASIC
 # ---
