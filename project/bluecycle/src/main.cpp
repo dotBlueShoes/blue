@@ -11,6 +11,8 @@
 
 #include <intrin.h>
 
+#include <blue/concepts.hpp>
+
 s32 main () {
 
     { // BLUE START
@@ -23,7 +25,7 @@ s32 main () {
         int cpuInfo[4];
         u64 start, end;
 
-        u8 i = rand () % 256; // Random Input prevents optimalization.
+        u8 i = rand () % 256; // pseudo-random Input prevents optimalization.
         r32 r;
 
         __cpuid (cpuInfo, 0);
