@@ -1,54 +1,23 @@
-﻿cmake_minimum_required (VERSION 3.27 FATAL_ERROR)
-project (blue-all VERSION 1.0.0 LANGUAGES C CXX)
+cmake_minimum_required (VERSION 3.27 FATAL_ERROR)
+project (BLUELIB VERSION 1.0.0 LANGUAGES C CXX)
 
 
-# --- Add global settings (for all of the subprojects).
-list (APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-include (properties)
+# Detect whether we're in sub-project or main-project mode.
+if (CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
 
+    message ("-- Constructing BLUELIB in main-project mode!")
 
-option (BLUE_ENABLE_TESTS       "Enable unit tests"                 OFF)
-option (BLUE_ENABLE_BENCHMARKS  "Enable benchmarks"                 OFF)
-option (BLUE_ENABLE_CCC         "Enable cpu-clock-cycles measures"  OFF)
+    # --- Add global settings (for the subproject)
+    list (APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+    include (properties)
 
-
-# --- Dependencies directory.
-add_subdirectory (dependencies)
-
-
-# --- Project's sources.
-add_subdirectory (project/bluelib)
-
-
-if (BLUE_ENABLE_TESTS)
-
-    # Add Google-Benchmark dependency.
-    add_subdirectory (${CMAKE_SOURCE_DIR}/external/googletest ${CMAKE_BINARY_DIR}/googletest)
-
-    add_subdirectory (project/blueunit)
+    # --- Dependencies directory.
+	add_subdirectory (dependencies)
 
 endif ()
 
 
-if (BLUE_ENABLE_BENCHMARKS)
-
-    if (NOT BLUE_ENABLE_TESTS)
-
-        # Add Google-Benchmark dependency.
-        add_subdirectory (${CMAKE_SOURCE_DIR}/external/googletest ${CMAKE_BINARY_DIR}/googletest)
-        
-    endif()
-
-    # Add Google-Benchmark.
-    add_subdirectory (${CMAKE_SOURCE_DIR}/external/benchmark ${CMAKE_BINARY_DIR}/googlebenchmark)
-
-    add_subdirectory (project/bluemetric)
-
-endif ()
-
-
-if (BLUE_ENABLE_CCC)
-
-    add_subdirectory (project/bluecycle)
-
-endif ()
+# --- Define a 'library' with it's 'headers'
+set (BLUELIB_INC_DIR ${CMAKE_CURRENT_LIST_DIR}/inc)
+add_library (BLUELIB INTERFACE)
+target_include_directories (BLUELIB INTERFACE ${BLUELIB_INC_DIR})
