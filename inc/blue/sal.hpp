@@ -25,27 +25,52 @@
     #include <sal.h>
 
     // SAL - FUNCTION ARGUMENT IN 
-    #define IN _In_
+    //#define IN _In_
     // SAL - FUNCTION ARGUMENT OUT 
-    #define OUT _Out_
+    //#define OUT _Out_
     // SAL - FUNCTION ARGUMENT IN & OUT
-    #define INOUT _Inout_
+    //#define INOUT _Inout_
+
+    // SAL - FUNCTION ARGUMENT IN 
+    #define IN _In_ const
+    // SAL - FUNCTION ARGUMENT OUT 
+    #define OT _Out_
+    // SAL - FUNCTION ARGUMENT IN & OUT
+    #define IO _Inout_
+
+    //IN(size), OT(size), IO(size)
+
+    #define IN_N(count) _Out_writes_bytes_(count)
+    #define OT_N(count) _In_reads_bytes_(count)
+    #define IO_N(count) _Inout_updates_bytes_(count)
+
+    //#define _ARG2(_0, _1, N, ...) N
+    //#define _HAS_ARGS(...) _ARG2(__VA_ARGS__, 1, 0)
+    //#define foo_dispatch(hasargs, ...) foo_dispatch_(hasargs, __VA_ARGS__)
+    //#define foo_dispatch_(hasargs, ...) IN_##hasargs(__VA_ARGS__)
+    //#define AA(...) foo_dispatch(_HAS_ARGS(__VA_ARGS__), __VA_ARGS__)
+
+    //#define AA(...) foo_OVERLOAD(__VA_ARGS__)
+    //#define AA AA()
+    //#define foo_OVERLOAD(...) foo_SELECT(__VA_ARGS__, foo_with_arg, foo_noargs)
+    //#define foo_SELECT(a, b, NAME, ...) NAME
+    //#define foo_noargs IN_0()
+    //#define foo_with_arg(x) IN_1(x)
 
 #else
 
     // SAL - FUNCTION ARGUMENT IN 
     #define IN
     // SAL - FUNCTION ARGUMENT OUT 
-    #define OUT
+    #define OT
     // SAL - FUNCTION ARGUMENT IN & OUT
-    #define INOUT
+    #define IO
 
 #endif
 
 // SAL - STATING THAT IT WAS TESTED THAT BRANCHLESS
 // IMPLEMENTATION HERE IS IN FACT BETTER.
-#define BRANCHLESS
-
+//#define BRANCHLESS
 // SAL - STATING THAT IT WAS TESTED THAT BRANCH
 // IMPLEMENTATION HERE IS IN FACT BETTER.
-#define BRANCH
+//#define BRANCH

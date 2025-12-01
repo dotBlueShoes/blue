@@ -27,7 +27,7 @@
 #ifdef MEMORY_TYPE_NOT_SIZED
     #define DEALLOC_ARGS INOUT void* data
 #else
-    #define DEALLOC_ARGS IN	MEMORY_TYPE	size, INOUT void* data
+    #define DEALLOC_ARGS IN	MEMORY_TYPE	size, IO void* data
 #endif
 
 
@@ -80,11 +80,11 @@ namespace MEMORY {
 
     template <typename T>
     void Construct2 (
-        OUT		T*& 				newArray, 
-        IN		const u32& 			aArrayLength, 
-        IN		const void* const& 	aArray, 
-        IN		const u32& 			bArrayLength, 
-        IN		const void* const& 	bArray
+        OT                  T*    REF newArray, 
+        IN                  u32   REF aArrayLength, 
+        IN_N (aArrayLength) void* CEF aArray, 
+        IN                  u32   REF bArrayLength, 
+        IN_N (bArrayLength) void* CEF bArray
     ) {
         ALLOCATE (T, newArray, aArrayLength + bArrayLength);
         memcpy (newArray, aArray, aArrayLength);
@@ -93,13 +93,13 @@ namespace MEMORY {
 
     template <typename T>
     void Construct3 (
-        OUT		T*& 				newArray, 
-        IN		const u32& 			aArrayLength, 
-        IN		const void* const& 	aArray, 
-        IN		const u32& 			bArrayLength, 
-        IN		const void* const& 	bArray,
-        IN		const u32& 			cArrayLength, 
-        IN		const void* const& 	cArray
+        OT                  T*    REF newArray, 
+        IN                  u32   REF aArrayLength, 
+        IN_N (aArrayLength) void* CEF aArray, 
+        IN                  u32   REF bArrayLength, 
+        IN_N (bArrayLength) void* CEF bArray,
+        IN                  u32   REF cArrayLength, 
+        IN_N (cArrayLength) void* CEF cArray
     ) {
         ALLOCATE (T, newArray, aArrayLength + bArrayLength + cArrayLength);
         memcpy (newArray, aArray, aArrayLength);

@@ -18,7 +18,9 @@ namespace TIMESTAMP {
         return Clock::now ();
     }
 
-    [[nodiscard]] auto GetElapsed (IN const Timestamp& previous) {
+    [[nodiscard]] auto GetElapsed (
+        IN Timestamp REF previous
+    ) {
         auto current = Clock::now ();
         Duration elapsed = current - previous;
         return elapsed.count ();

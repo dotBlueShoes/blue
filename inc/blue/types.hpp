@@ -46,20 +46,37 @@ struct pair {
     T x, y;
 };
 
+// --- 
+
+#define REF &
+#define CEF const&
+#define CPY
+
+// --- 
+
+//  ABOUT
+// Use of an memory of which we do not control. Such memory should is marked by me 
+//  inside structs and as function argument.
+//
+#define interface
+
+// volatile 
+// register
+
+// ---
 
 //  TODO
 // REDO Equality String Test
 //
-
 //
 // Equality String Test Called `3` with its u8 and u16 version.
 //  ...
 //
 
 void IsEqualS3_8 (
-    INOUT	u8& 				condition,
-    IN 		const u8* const& 	a,
-    IN		const u8* const& 	b
+    IO u8  REF condition,
+    IN u8* CEF a,
+    IN u8* CEF b
 ) {
     for (u32 i = 0; condition == 0; ++i) {
         condition += (a[i]	!= b[i]) << 2;  // 4
@@ -69,9 +86,9 @@ void IsEqualS3_8 (
 }
 
 void IsEqualS3_16 (
-    INOUT	u8& 				condition,
-    IN		const u16* const& 	a,
-    IN		const u16* const& 	b
+    IO u8   REF condition,
+    IN u16* CEF a,
+    IN u16* CEF b
 ) {
     for (u32 i = 0; condition == 0; ++i) {
         condition += (a[i]	!= b[i]) << 2;  // 4
@@ -80,16 +97,4 @@ void IsEqualS3_16 (
     }
 }
 
-//  TODO
-// namespace STRINGCASE TransformToLowerCase ()
-//						TransformToUpperCase ()
-//
-
-void ToLowCase (
-    INOUT	c8* const& data,
-    IN		const u32& length
-) {
-    for (u32 i = 0; i < length; ++i) {
-        data[i] = tolower (data[i]);
-    }
-}
+// ---

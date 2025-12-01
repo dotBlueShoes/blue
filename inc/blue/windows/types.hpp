@@ -17,8 +17,8 @@
 }
 
 bool IsValidDirectory (
-    IN 		const c16* const& 	path, 
-    IN 		const u32& 			pathLength
+    IN                u32  REF pathLength,
+    IN_N (pathLength) c16* CEF path
 ) {
 
     // Is a valid pointer.
