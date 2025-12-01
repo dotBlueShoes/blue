@@ -2,9 +2,8 @@
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
 #pragma once
-#include "memory_exit.hpp"
 #include "log.hpp"
-#include "windows/types.hpp"
+#include "memory_exit.hpp"
 
 #define ERRORWIN(text) { \
     MSGERROR (text); \

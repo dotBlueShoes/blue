@@ -2,11 +2,12 @@
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
 #pragma once
+//
+#include "windows/types.hpp"
+//
 #include "types.hpp"
 #include "io_types.hpp"
 #include "debug.hpp"
-
-#include "windows/types.hpp"
 
 #ifndef ERROR_NEW_LINE
     #define ERROR_NEW_LINE "\n"

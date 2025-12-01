@@ -7,7 +7,7 @@
 #include <wchar.h>
 #include <array>
 #include <ctype.h>
-
+//
 #include "sal.hpp"
 
 using c8  = char;
@@ -55,13 +55,10 @@ struct pair {
 // --- 
 
 //  ABOUT
-// Use of an memory of which we do not control. Such memory should is marked by me 
-//  inside structs and as function argument.
+// Use of an memory of which we do not control. Such memory should is marked by me inside 
+//  structs and as function argument.
 //
 #define interface
-
-// volatile 
-// register
 
 // ---
 
