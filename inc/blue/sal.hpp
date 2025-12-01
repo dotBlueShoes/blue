@@ -36,13 +36,11 @@
     // SAL - FUNCTION ARGUMENT OUT 
     #define OT _Out_
     // SAL - FUNCTION ARGUMENT IN & OUT
-    #define IO _Inout_
-
-    //IN(size), OT(size), IO(size)
+    #define IT _Inout_
 
     #define IN_N(count) _Out_writes_bytes_(count)
     #define OT_N(count) _In_reads_bytes_(count)
-    #define IO_N(count) _Inout_updates_bytes_(count)
+    #define IT_N(count) _Inout_updates_bytes_(count)
 
     //#define _ARG2(_0, _1, N, ...) N
     //#define _HAS_ARGS(...) _ARG2(__VA_ARGS__, 1, 0)
@@ -64,7 +62,7 @@
     // SAL - FUNCTION ARGUMENT OUT 
     #define OT
     // SAL - FUNCTION ARGUMENT IN & OUT
-    #define IO
+    #define IT
 
 #endif
 

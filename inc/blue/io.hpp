@@ -6,33 +6,37 @@
 
 namespace IO {
 
-    bool IsExisting (const c16* const& name) {
+    bool IsExisting (
+        IN c16* CEF name
+    ) {
         struct _stat64i32 buffer;   
           return (_wstat (name, &buffer) == 0); 
     }
 
-    bool IsExisting (const c8* const& name) {
+    bool IsExisting (
+        IN c8* CEF name
+    ) {
         struct stat buffer;   
           return (stat (name, &buffer) == 0); 
     }
 
     void CreateEmpty (
-        IN		const c16* const& pathname
+        IN c16* CEF pathname
     ) {
         std::wofstream outfile (pathname);
         outfile.close ();
     }
 
     void CreateEmpty (
-        IN		const c8* const& pathname
+        IN c8* CEF pathname
     ) {
         std::ofstream outfile (pathname);
         outfile.close ();
     }
 
     void CreateAdd (
-        IN		const c16* const& pathname,
-        IN		const c16* const& context
+        IN c16* CEF pathname,
+        IN c16* CEF context
     ) {
         std::wofstream outfile (pathname);
         outfile << context << std::endl;
@@ -40,8 +44,8 @@ namespace IO {
     }
 
     void CreateAdd (
-        IN		const c8* const& pathname,
-        IN		const c8* const& context
+        IN c8* CEF pathname,
+        IN c8* CEF context
     ) {
         std::ofstream outfile (pathname);
         outfile << context << std::endl;
@@ -49,15 +53,15 @@ namespace IO {
     }
 
     void Read (
-        IN		const c16* const& 	pathname,
-        OUT		FILE*& 				file
+        IN c16*  CEF pathname,
+        OT FILE* REF file
     ) {
         file = _wfopen (pathname, L"rb");
         if (file == nullptr) ERROR ("File could not be opened - '%ls'." ERROR_NEW_LINE, pathname);
     }
 
     void Close (
-        INOUT	FILE*& file
+        IT	FILE* REF file
     ) {
         fclose (file);
     }

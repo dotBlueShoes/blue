@@ -74,7 +74,7 @@ struct pair {
 //
 
 void IsEqualS3_8 (
-    IO u8  REF condition,
+    IT u8  REF condition,
     IN u8* CEF a,
     IN u8* CEF b
 ) {
@@ -86,7 +86,7 @@ void IsEqualS3_8 (
 }
 
 void IsEqualS3_16 (
-    IO u8   REF condition,
+    IT u8   REF condition,
     IN u16* CEF a,
     IN u16* CEF b
 ) {
