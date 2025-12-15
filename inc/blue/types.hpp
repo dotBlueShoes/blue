@@ -60,7 +60,23 @@ struct pair {
 //
 #define interface
 
-// ---
+// low/high --- value-operator ---------
+#define v64h(x) ((u16)(x >> 32))
+#define v64l(x) ((u16)(x))
+#define v32h(x) ((u16)(x >> 16))
+#define v32l(x) ((u16)(x))
+#define v16h(x)  ((u8)(x >> 8))
+#define v16l(x)  ((u8)(x))
+// -------------------------------------
+
+// low/high --- address-operator -------
+#define a64h(x) *((u32*)(void*)(&x) + 1)
+#define a64l(x) *((u32*)(void*)(&x))
+#define a32h(x) *((u16*)(void*)(&x) + 1)
+#define a32l(x) *((u16*)(void*)(&x))
+#define a16h(x) *((u8*)(void*)(&x) + 1)
+#define a16l(x) *((u8*)(void*)(&x))
+// -------------------------------------
 
 //  TODO
 // REDO Equality String Test
