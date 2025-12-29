@@ -46,6 +46,19 @@ struct pair {
     T x, y;
 };
 
+// ---
+
+//  ABOUT
+// A forced inline should (in most cases) produce a warning/error if it faild to inline.
+//
+#if defined(_MSC_VER)
+    #define codeblock static __forceinline
+#elif defined(__GNUC__) || defined(__clang__)
+    #define codeblock static inline __attribute__((always_inline))
+#else
+    #define codeblock static inline
+#endif
+
 // --- 
 
 #define REF &

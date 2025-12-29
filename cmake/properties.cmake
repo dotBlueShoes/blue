@@ -23,9 +23,15 @@ if 		(MSVC)
         set (CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
     endif ()
 
+    # Disable MSVC warning C5033: 'register' is no longer supported
+    add_compile_options (/wd5033)
+
 elseif 	(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 
     message (STATUS "Compiling with Clang")
+
+    # Disable GCC/Clang warning: -Wdeprecated-register
+    add_compile_options (-Wno-deprecated-register -Wno-register)
 
 else 	()
 
