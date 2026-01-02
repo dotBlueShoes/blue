@@ -15,7 +15,7 @@ namespace TIMESTAMP {
     using Timestamp = Clock::time_point;
 
     Timestamp GetCurrent ();
-    [[nodiscard]] auto GetElapsed ( IN Timestamp REF previous );
+    [[nodiscard]] r32 GetElapsed ( IN Timestamp REF previous );
 
 }
 
@@ -26,7 +26,7 @@ namespace TIMESTAMP {
         return Clock::now ();
     }
 
-    [[nodiscard]] auto GetElapsed (
+    [[nodiscard]] r32 GetElapsed (
         IN Timestamp REF previous
     ) {
         auto current = Clock::now ();
