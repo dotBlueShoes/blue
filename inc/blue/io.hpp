@@ -6,6 +6,20 @@
 
 namespace IO {
 
+    bool IsExisting ( IN c16* CEF name );
+    bool IsExisting ( IN c8*  CEF name );
+    void CreateEmpty ( IN c16* CEF pathname );
+    void CreateEmpty ( IN c8*  CEF pathname );
+    void CreateAdd ( IN c16* CEF pathname, IN c16* CEF context );
+    void CreateAdd ( IN c8* CEF pathname, IN c8* CEF context );
+    void Read ( IN c16*  CEF pathname, OT FILE* REF file );
+    void Close ( IT FILE* REF file );
+
+}
+
+#ifdef BLUELIB_IMPLEMENTATION
+namespace IO {
+
     bool IsExisting (
         IN c16* CEF name
     ) {
@@ -14,7 +28,7 @@ namespace IO {
     }
 
     bool IsExisting (
-        IN c8* CEF name
+        IN c8*  CEF name
     ) {
         struct stat buffer;   
           return (stat (name, &buffer) == 0); 
@@ -28,7 +42,7 @@ namespace IO {
     }
 
     void CreateEmpty (
-        IN c8* CEF pathname
+        IN c8*  CEF pathname
     ) {
         std::ofstream outfile (pathname);
         outfile.close ();
@@ -61,9 +75,10 @@ namespace IO {
     }
 
     void Close (
-        IT	FILE* REF file
+        IT FILE* REF file
     ) {
         fclose (file);
     }
 
 }
+#endif

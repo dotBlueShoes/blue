@@ -6,20 +6,29 @@
 
 namespace STRINGCASE {
 
-    void TransformToLower (
-        IN            u32 REF length,
-        IO_N (length) c8* REF data
+    void ToLower ( IN u32 REF length, ITN (length) c8* REF data );
+    void ToUpper ( IN u32 REF length, ITN (length) c8* REF data );
+
+}
+
+#ifdef BLUELIB_IMPLEMENTATION
+namespace STRINGCASE {
+
+    void ToLower (
+        IN           u32 REF length,
+        ITN (length) c8* REF data
     ) {
         for (u32 i = 0; i < length; ++i) {
             data[i] = tolower (data[i]);
         }
     }
 
-    void TransformToUpper (
-        IN            u32 REF length,
-        IO_N (length) c8* REF data
+    void ToUpper (
+        IN           u32 REF length,
+        ITN (length) c8* REF data
     ) {
         // TODO
     }
 
 }
+#endif

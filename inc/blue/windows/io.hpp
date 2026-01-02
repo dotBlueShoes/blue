@@ -4,14 +4,31 @@
 #pragma once
 #include "types.hpp"
 
+
 namespace IO {
+
+    bool CreateAllPathDirectories (
+		IT c16* REF path, 
+		IN u32  REF pathLength
+	);
+
+    bool IsValidDirectory (
+		IT c16* REF path, 
+		IN u32  REF pathLength
+	);
+
+}
+
+
+#ifdef BLUELIB_IMPLEMENTATION
+namespace WINDOWS::IO {
 
 	//  ISSUE, TODO
 	// This method should do the checking again and remove the directories created if checking failed...
 	//
 	bool CreateAllPathDirectories (
-		IN 		c16*& 				path, 
-		IN 		const u32& 			pathLength
+		IT c16* REF path, 
+		IN u32  REF pathLength
 	) {
 
 		for (u32 i = 2; i < pathLength; ++i) {
@@ -79,8 +96,8 @@ namespace IO {
 
 
 	bool IsValidDirectory (
-		IN 		c16*& 				path, 
-		IN 		const u32& 			pathLength
+		IT c16* REF path, 
+		IN u32  REF pathLength
 	) {
 		const u32 pathLengthW = pathLength / 2;
 		const u32 DRIVE_END_POS = 2;
@@ -194,3 +211,4 @@ namespace IO {
 	}
 	
 }
+#endif

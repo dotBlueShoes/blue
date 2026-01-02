@@ -11,6 +11,12 @@
 namespace WINDOWS {
 
     static const WORD MAX_CONSOLE_LINES = 500;
+    void AttachConsole ();
+
+}
+
+#ifdef BLUELIB_IMPLEMENTATION
+namespace WINDOWS {
 
     void AttachConsole () {
         FILE* stream = nullptr;
@@ -30,3 +36,4 @@ namespace WINDOWS {
     }
 
 }
+#endif

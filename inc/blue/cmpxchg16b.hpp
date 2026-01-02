@@ -26,10 +26,10 @@
 
     codeblock bool cmpxchg16b (
         IT volatile u64* CEF ptr,
-        IT register u64  REF exp_lo,
-        IT register u64  REF exp_hi,
-        IN register u64  REF des_lo,
-        IN register u64  REF des_hi
+        IT register u64  REF expL,
+        IT register u64  REF expH,
+        IN register u64  REF desL,
+        IN register u64  REF desH
     ) {
         register bool isEqual;
 
@@ -38,10 +38,10 @@
             "sete %0"
             : "=q"(isEqual),
               "+m"(*ptr),
-              "+a"(exp_lo),
-              "+d"(exp_hi)
-            : "b"(des_lo),
-              "c"(des_hi)
+              "+a"(expL),
+              "+d"(expH)
+            : "b"(desL),
+              "c"(desH)
             : "cc", "memory"
         );
 
@@ -50,10 +50,10 @@
 
     codeblock bool atomic_cmpxchg16b (
         IT volatile u64* CEF ptr,
-        IT register u64  REF exp_lo,
-        IT register u64  REF exp_hi,
-        IN register u64  REF des_lo,
-        IN register u64  REF des_hi
+        IT register u64  REF expL,
+        IT register u64  REF expH,
+        IN register u64  REF desL,
+        IN register u64  REF desH
     ) {
         register bool isEqual;
 
@@ -62,10 +62,10 @@
             "sete %0"
             : "=q"(isEqual),
               "+m"(*ptr),
-              "+a"(exp_lo),
-              "+d"(exp_hi)
-            : "b"(des_lo),
-              "c"(des_hi)
+              "+a"(expL),
+              "+d"(expH)
+            : "b"(desL),
+              "c"(desH)
             : "cc", "memory"
         );
 
@@ -78,10 +78,10 @@
 
     codeblock bool cmpxchg16b (
         IT volatile u64* CEF ptr,
-        IT register u64  REF exp_lo,
-        IT register u64  REF exp_hi,
-        IN register u64  REF des_lo,
-        IN register u64  REF des_hi
+        IT register u64  REF expL,
+        IT register u64  REF expH,
+        IN register u64  REF desL,
+        IN register u64  REF desH
     ) {
         return false;
     };
@@ -90,10 +90,10 @@
 
     codeblock bool atomic_cmpxchg16b (
         IT volatile u64* CEF ptr,
-        IT register u64  REF exp_lo,
-        IT register u64  REF exp_hi,
-        IN register u64  REF des_lo,
-        IN register u64  REF des_hi
+        IT register u64  REF expL,
+        IT register u64  REF expH,
+        IN register u64  REF desL,
+        IN register u64  REF desH
     ) {
         return false;
     };

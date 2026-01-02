@@ -4,6 +4,7 @@
 #pragma once
 #include "types.hpp"
 
+
 #include <RichEdit.h>
 #include <CommCtrl.h>
 #include <Shlobj.h>
@@ -18,11 +19,11 @@ namespace WINDOWS::CONTROLS {
 	void LoadRichEdit () { LoadLibraryA (MSFTEDIT_DLL_PATH); }
 
 	void CreateProgressBarRange (
-		HWND& progressBar, 
-		const HWND& parentWindow, 
-		const u16& id,
+		HWND&            progressBar, 
+		const HWND&      parentWindow, 
+		const u16&       id,
 		const HINSTANCE& instance,
-		const DWORD& style,
+		const DWORD&     style,
 		const pair<u16>& position,
 		const pair<u16>& size,
 		const pair<u16>& range
@@ -43,15 +44,15 @@ namespace WINDOWS::CONTROLS {
 	}
 
 	void CreateProgressBarRangeStep (
-		HWND& progressBar, 
-		const HWND& parentWindow,
-		const u16& id,
+		HWND&            progressBar, 
+		const HWND&      parentWindow,
+		const u16&       id,
 		const HINSTANCE& instance,
-		const DWORD& style,
+		const DWORD&     style,
 		const pair<u16>& position,
 		const pair<u16>& size,
 		const pair<u16>& range,
-		const u16 stepSize
+		const u16        stepSize
 	) {
 		progressBar = CreateWindowExW (
 			0, PROGRESS_CLASSW, 
@@ -71,13 +72,13 @@ namespace WINDOWS::CONTROLS {
 	}
 
 	void CreateButton (
-		HWND& button, 
-		const HWND& parentWindow,
-		const u16& id,
-		const HINSTANCE& instance, 
-		const pair<s16>& position,
-		const pair<s16>& size,
-		const u32&  windowStyles,
+		HWND&             button, 
+		const HWND&       parentWindow,
+		const u16&        id,
+		const HINSTANCE&  instance, 
+		const pair<s16>&  position,
+		const pair<s16>&  size,
+		const u32&        windowStyles,
 		const c16* const& text = L"Click Me!"
 	) {
 		button = CreateWindowExW (
@@ -94,10 +95,10 @@ namespace WINDOWS::CONTROLS {
 	}
 
 	HRESULT BrowseFolder (
-		const HWND& window, 
+		const HWND&       window, 
 		const c16* const& startingFolderPath,
-		c16*& folderPath, 
-		u16 size
+		c16*&             folderPath, 
+		u16               size
 	) {
 		
 		IFileDialog* fileDialog = nullptr;
@@ -193,14 +194,14 @@ namespace WINDOWS::CONTROLS {
 
 
 	void CreateRichEdit (
-		HWND& richEdit,
-		const HWND& parentWindow,
+		HWND&            richEdit,
+		const HWND&      parentWindow,
 		const HINSTANCE& instance,
 		const pair<s16>& position,
 		const pair<s16>& size,
-		const u32&  windowStyles,
-		const u64& id = 0,
-		const c16* text = L"Type here"
+		const u32&       windowStyles,
+		const u64&       id = 0,
+		const c16*       text = L"Type here"
 	) {
 		richEdit = CreateWindowExW (
 			NULL, MSFTEDIT_CLASS, 
@@ -261,7 +262,10 @@ namespace WINDOWS::CONTROLS {
 		#endif
 	}
 
-	bool IsVerticalScrollbarAtMax (HWND window, s16 yOffset) {
+	bool IsVerticalScrollbarAtMax (
+        HWND window, 
+        s16 yOffset
+    ) {
 
     	SCROLLINFO scroll;
     	scroll.cbSize = sizeof (scroll);

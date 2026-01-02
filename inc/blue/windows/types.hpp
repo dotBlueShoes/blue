@@ -11,8 +11,16 @@
 }
 
 bool IsValidDirectory (
-    IN                u32  REF pathLength,
-    IN_N (pathLength) c16* CEF path
+    IN               u32  REF pathLength,
+    INN (pathLength) c16* CEF path
+);
+
+
+#ifdef BLUELIB_IMPLEMENTATION
+
+bool IsValidDirectory (
+    IN               u32  REF pathLength,
+    INN (pathLength) c16* CEF path
 ) {
 
     // Is a valid pointer.
@@ -49,3 +57,5 @@ bool IsValidDirectory (
     }
     
 }
+
+#endif

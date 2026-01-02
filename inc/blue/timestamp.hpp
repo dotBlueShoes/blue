@@ -14,7 +14,15 @@ namespace TIMESTAMP {
     using Clock 	= std::chrono::system_clock;
     using Timestamp = Clock::time_point;
 
-    Timestamp GetCurrent() {
+    Timestamp GetCurrent ();
+    [[nodiscard]] auto GetElapsed ( IN Timestamp REF previous );
+
+}
+
+#ifdef BLUELIB_IMPLEMENTATION
+namespace TIMESTAMP {
+
+    Timestamp GetCurrent () {
         return Clock::now ();
     }
 
@@ -27,3 +35,4 @@ namespace TIMESTAMP {
     }
 
 }
+#endif

@@ -4,6 +4,36 @@
 #pragma once
 #include "types.hpp"
 
+#define CHECK_PROPERTY(error, propertyName) { if (error != ERROR_SUCCESS) \
+    ERROR ("Setting up property '%ls' failed.\n\n", propertyName); }
+
+namespace WINDOWS::REGISTRY {
+
+    void CreateKeyMachine (
+        OT HKEY    REF key, 
+        OT LSTATUS REF error, 
+        OT DWORD   REF status,
+        IN c16*    CEF keyName
+    );
+
+    void CreatePropertyC16 (
+        OT HKEY    REF key, 
+        OT LSTATUS REF error,
+        IN c16*    CEF property,
+        IN c16*    CEF data,
+        IN u32     REF dataLength
+    );
+
+    void CreatePropertyS32 (
+        OT HKEY    REF key, 
+        OT LSTATUS REF error,
+        IN c16*    CEF property,
+        IN u32     REF data
+    );
+
+}
+
+#ifdef BLUELIB_IMPLEMENTATION
 namespace WINDOWS::REGISTRY {
 
     //bool IsAdmin () {
@@ -53,15 +83,12 @@ namespace WINDOWS::REGISTRY {
     //
     //	return isAdmin;
     //}
-    
-
-    #define CHECK_PROPERTY(error, propertyName) { if (error != ERROR_SUCCESS) ERROR ("Setting up property '%ls' failed.\n\n", propertyName); }
 
     void CreateKeyMachine (
-        OUT 	HKEY& 				key, 
-        OUT 	LSTATUS& 			error, 
-        OUT 	DWORD& 				status,
-        IN	 	const c16* const& 	keyName
+        OT HKEY    REF key, 
+        OT LSTATUS REF error, 
+        OT DWORD   REF status,
+        IN c16*    CEF keyName
     ) {
         error = RegCreateKeyExW (
             HKEY_LOCAL_MACHINE, 			// Type
@@ -78,11 +105,11 @@ namespace WINDOWS::REGISTRY {
 
 
     void CreatePropertyC16 (
-        OUT		HKEY 				key, 
-        OUT		LSTATUS 			error,
-        IN		const c16* const& 	property,
-        IN		const c16* const& 	data,
-        IN		const u32& 			dataLength
+        OT HKEY    REF key, 
+        OT LSTATUS REF error,
+        IN c16*    CEF property,
+        IN c16*    CEF data,
+        IN u32     REF dataLength
     ) {
         error = RegSetValueExW (
             key, 							// catalog (key)
@@ -96,10 +123,10 @@ namespace WINDOWS::REGISTRY {
 
 
     void CreatePropertyS32 (
-        OUT		HKEY 				key, 
-        OUT		LSTATUS 			error,
-        IN		const c16* const& 	property,
-        IN		const u32& 			data
+        OT HKEY    REF key, 
+        OT LSTATUS REF error,
+        IN c16*    CEF property,
+        IN u32     REF data
     ) {
         error = RegSetValueExW (
             key, 							// catalog (key)
@@ -112,3 +139,4 @@ namespace WINDOWS::REGISTRY {
     }
 
 }
+#endif

@@ -1,7 +1,6 @@
 // Created 2024.11.25 by Matthew Strumiłło (dotBlueShoes)
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
-
 #pragma once
 #include <stdint.h>
 #include <wchar.h>
@@ -38,8 +37,8 @@ using arr16 = array_t<T, u16, length>;
 template<class T, u32 length>
 using arr32 = array_t<T, u32, length>;
 
-template<class T, u32 length>
-using arr64 = array_t<T, u32, length>;
+template<class T, u64 length>
+using arr64 = array_t<T, u64, length>;
 
 template<class T>
 struct pair {
@@ -61,6 +60,9 @@ struct pair {
 
 // --- 
 
+//  ABOUT
+// Makes the way an argument is being passed into a function more visible.
+//
 #define REF &
 #define CEF const&
 #define CPY
@@ -90,37 +92,3 @@ struct pair {
 #define a16h(x) *((u8*)(void*)(&x) + 1)
 #define a16l(x) *((u8*)(void*)(&x))
 // -------------------------------------
-
-//  TODO
-// REDO Equality String Test
-//
-//
-// Equality String Test Called `3` with its u8 and u16 version.
-//  ...
-//
-
-void IsEqualS3_8 (
-    IT u8  REF condition,
-    IN u8* CEF a,
-    IN u8* CEF b
-) {
-    for (u32 i = 0; condition == 0; ++i) {
-        condition += (a[i]	!= b[i]) << 2;  // 4
-        condition += a[i]	== '\0';		// 1
-        condition += b[i]	== '\0';		// 1
-    }
-}
-
-void IsEqualS3_16 (
-    IT u8   REF condition,
-    IN u16* CEF a,
-    IN u16* CEF b
-) {
-    for (u32 i = 0; condition == 0; ++i) {
-        condition += (a[i]	!= b[i]) << 2;  // 4
-        condition += a[i]	== '\0';		// 1
-        condition += b[i]	== '\0';		// 1
-    }
-}
-
-// ---

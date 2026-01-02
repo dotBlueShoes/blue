@@ -7,12 +7,44 @@
 namespace COMPARESEARCH {
 
     void ArrayPartFirstMatch (
-        IN		const void* const	compered,
-        IN		const u16&			comperedCount,
-        IN		const u8&			comperedSize,
-        OUT		u32&				index,
-        IN		const u32&			elementsCount,
-        IN		const void* const	elements
+        IN void* CEF compered,
+        IN u16   REF comperedCount,
+        IN u8    REF comperedSize,
+        OT u32   REF index,
+        IN u32   REF elementsCount,
+        IN void* CEF elements
+    );
+
+    void ArrayPartFirstMatchVector (
+        IN void*        CEF compered,
+        IN u16          REF comperedCount,
+        IN u8           REF comperedSize,
+        OT u32          REF index,
+        IN u32          REF elementsCount,
+        IN void* const* CEF elements
+    );
+
+    void ArrayPartFirstMatchVectorLowCase (
+        IN void*        CEF compered,
+        IN u16          REF comperedCount,
+        IN u8           REF comperedSize,
+        OT u32          REF index,
+        IN u32          REF elementsCount,
+        IN void* const* CEF elements
+    );
+
+}
+
+#ifdef BLUELIB_IMPLEMENTATION
+namespace COMPARESEARCH {
+
+    void ArrayPartFirstMatch (
+        IN void* CEF compered,
+        IN u16   REF comperedCount,
+        IN u8    REF comperedSize,
+        OT u32   REF index,
+        IN u32   REF elementsCount,
+        IN void* CEF elements
     ) {
         auto& iElement = index;
         u8 collision = 1;
@@ -33,12 +65,12 @@ namespace COMPARESEARCH {
     }
 
     void ArrayPartFirstMatchVector (
-        IN		const void* const&			compered,
-        IN		const u16&					comperedCount,
-        IN		const u8&					comperedSize,
-        OUT		u32&						index,
-        IN		const u32&					elementsCount,
-        IN		const void* const* const&	elements
+        IN void*        CEF compered,
+        IN u16          REF comperedCount,
+        IN u8           REF comperedSize,
+        OT u32          REF index,
+        IN u32          REF elementsCount,
+        IN void* const* CEF elements
     ) {
         auto& iElement = index;
         u8 collision = 1;
@@ -61,12 +93,12 @@ namespace COMPARESEARCH {
     }
 
     void ArrayPartFirstMatchVectorLowCase (
-        IN		const void* const&			compered,
-        IN		const u16&					comperedCount,
-        IN		const u8&					comperedSize,
-        OUT		u32&						index,
-        IN		const u32&					elementsCount,
-        IN		const void* const* const&	elements
+        IN void*        CEF compered,
+        IN u16          REF comperedCount,
+        IN u8           REF comperedSize,
+        OT u32          REF index,
+        IN u32          REF elementsCount,
+        IN void* const* CEF elements
     ) {
         auto& iElement = index;
         u8 collision = 1;
@@ -90,3 +122,4 @@ namespace COMPARESEARCH {
     }
 
 }
+#endif
