@@ -4,6 +4,9 @@
 #pragma once
 #include "types.hpp"
 
+#ifdef interface
+#pragma push_macro ("interface")
+#endif
 
 #include <RichEdit.h>
 #include <CommCtrl.h>
@@ -283,3 +286,8 @@ namespace WINDOWS::CONTROLS {
 	}
 
 }
+
+#ifdef interface
+    #undef interface
+    #pragma pop_macro ("interface")
+#endif
