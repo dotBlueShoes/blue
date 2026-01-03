@@ -6,8 +6,8 @@
 
 namespace STRINGCASE {
 
-    void ToLower ( IN u32 REF length, ITN (length) c8* REF data );
-    void ToUpper ( IN u32 REF length, ITN (length) c8* REF data );
+    void ToLower ( IN u32 REF length, ITN (length) c8* CEF data );
+    void ToUpper ( IN u32 REF length, ITN (length) c8* CEF data );
 
 }
 
@@ -16,7 +16,7 @@ namespace STRINGCASE {
 
     void ToLower (
         IN           u32 REF length,
-        ITN (length) c8* REF data
+        ITN (length) c8* CEF data
     ) {
         for (u32 i = 0; i < length; ++i) {
             data[i] = tolower (data[i]);
@@ -25,7 +25,7 @@ namespace STRINGCASE {
 
     void ToUpper (
         IN           u32 REF length,
-        ITN (length) c8* REF data
+        ITN (length) c8* CEF data
     ) {
         // TODO
     }
