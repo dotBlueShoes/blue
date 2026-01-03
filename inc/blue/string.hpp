@@ -18,7 +18,7 @@ void Is3StrEqu16 ( IT u8 REF condition, IN u16* CEF a, IN u16* CEF b );
 
 #ifdef BLUELIB_IMPLEMENTATION
 
-template <typename uN = u32>
+template <typename uN>
 void Is3StrEqu8 (
     IT u8  REF condition,
     IN u8* CEF a,
@@ -32,7 +32,7 @@ void Is3StrEqu8 (
 }
 
 
-template <typename uN = u32>
+template <typename uN>
 void Is3StrEqu16 (
     IT u8   REF condition,
     IN u16* CEF a,
