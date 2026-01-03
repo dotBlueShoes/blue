@@ -24,7 +24,7 @@
 
 
 #ifdef MEMORY_TYPE_NOT_SIZED
-    #define DEALLOC_ARGS INOUT void* data
+    #define DEALLOC_ARGS IT void* data
 #else
     #define DEALLOC_ARGS IN	MEMORY_TYPE	size, IT void* data
 #endif

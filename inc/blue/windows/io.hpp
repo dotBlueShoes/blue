@@ -57,10 +57,10 @@ namespace WINDOWS::IO {
 	}
 
 	//bool CreatePathIntermediateDirectories (
-	//	IN 		c16*& 				path, 
-	//	IN 		const u32& 			pathLength,
-	//	INOUT 	u32& 				lastExistingDirectoryPosition,
-	//	INOUT 	u32& 				lastDirectoryPosition
+	//	IN c16*& 				path, 
+	//	IN u32& 			pathLength,
+	//	IT u32& 				lastExistingDirectoryPosition,
+	//	IT u32& 				lastDirectoryPosition
 	//) {
 	//	
 	//	for (u32 i = 2; i < pathLength; ++i) {
