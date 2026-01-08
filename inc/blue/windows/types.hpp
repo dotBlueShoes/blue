@@ -2,8 +2,9 @@
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
 #pragma once
-#include "windows_guarded.hpp"
 #include "../types.hpp"
+#include "windows.hpp"
+
 
 #define GetProcMemory(procedureType, module, procedureName) { \
     procedureName = (procedureType) GetProcAddress (GetModuleHandleA (#module), #procedureName); \

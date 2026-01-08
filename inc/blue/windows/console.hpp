@@ -3,10 +3,9 @@
 //
 #pragma once
 
-#include <blue/types.hpp>
-#include <blue/error.hpp>
-
-#include <windows.h>
+#include "blue/types.hpp"
+#include "blue/error.hpp"
+#include "windows.hpp"
 
 namespace WINDOWS {
 
