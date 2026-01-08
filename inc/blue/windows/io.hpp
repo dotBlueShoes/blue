@@ -5,7 +5,7 @@
 #include "types.hpp"
 
 
-namespace IO {
+namespace WINDOWS::IO {
 
     bool CreateAllPathDirectories (
 		IT c16* REF path, 

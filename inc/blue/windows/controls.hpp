@@ -50,7 +50,7 @@ namespace WINDOWS::CONTROLS {
 			style, // PBS_MARQUEE, PBS_SMOOTH, PBS_SMOOTHREVERSE, PBS_VERTICAL
 			position.x, position.y, size.x, size.y, 
 			parentWindow, 
-			(HMENU) id, 
+			(HMENU) (u64)id, 
 			instance, 
 			nullptr
 		);
@@ -76,7 +76,7 @@ namespace WINDOWS::CONTROLS {
 			WS_CHILD | WS_VISIBLE, // PBS_MARQUEE, PBS_SMOOTH, PBS_SMOOTHREVERSE, PBS_VERTICAL
 			position.x, position.y, size.x, size.y, 
 			parentWindow, 
-			(HMENU) id, 
+			(HMENU) (u64)id, 
 			instance, 
 			nullptr
 		);
@@ -104,7 +104,7 @@ namespace WINDOWS::CONTROLS {
 			position.x, position.y,
 			size.x, size.y,
 			parentWindow,
-			(HMENU) id,
+			(HMENU) (u64)id,
 			instance,
 			nullptr
 		);
@@ -226,7 +226,7 @@ namespace WINDOWS::CONTROLS {
 			position.x, position.y, 
 			size.x, size.y,
 			parentWindow, 
-			(HMENU)id,
+			(HMENU) (u64)id,
 			instance, 
 			nullptr
 		);
