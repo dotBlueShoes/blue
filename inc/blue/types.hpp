@@ -75,7 +75,7 @@ struct pair {
 //  structs and as function argument.
 //
 //#ifndef interface
-#define interface
+//#define interface
 //#endif
 
 // low/high --- value-operator ---------

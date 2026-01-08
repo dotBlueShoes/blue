@@ -7,8 +7,6 @@
 #undef IN
 #pragma push_macro ("OUT")
 #undef OUT
-#pragma push_macro ("interface")
-#undef interface
 #pragma push_macro ("ERROR")
 #undef ERROR
 #undef max
@@ -23,8 +21,6 @@
 #pragma pop_macro ("IN")
 #undef OUT
 #pragma pop_macro ("OUT")
-#undef interface
-#pragma pop_macro ("interface")
 #undef ERROR
 #pragma pop_macro ("ERROR")
 #undef max

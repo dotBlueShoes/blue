@@ -3,14 +3,12 @@
 //
 #pragma once
 //
-#include "../types.hpp"
+#include "blue/error.hpp"
 //
 #pragma push_macro ("IN")
 #undef IN
 #pragma push_macro ("OUT")
 #undef OUT
-#pragma push_macro ("interface")
-#undef interface
 #pragma push_macro ("ERROR")
 #undef ERROR
 #undef max
@@ -307,8 +305,6 @@ namespace WINDOWS::CONTROLS {
 #pragma pop_macro ("IN")
 #undef OUT
 #pragma pop_macro ("OUT")
-#undef interface
-#pragma pop_macro ("interface")
 #undef max
 #pragma pop_macro ("max")
 #undef min
