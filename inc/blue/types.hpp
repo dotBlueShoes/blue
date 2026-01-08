@@ -73,9 +73,9 @@ struct pair {
 // Use of an memory of which we do not control. Such memory should is marked by me inside 
 //  structs and as function argument.
 //
-#ifndef interface
+//#ifndef interface
 #define interface
-#endif
+//#endif
 
 // low/high --- value-operator ---------
 #define v64h(x) ((u16)(x >> 32))
