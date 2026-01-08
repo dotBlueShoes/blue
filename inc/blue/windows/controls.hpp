@@ -25,6 +25,9 @@
 #include <Shlobj.h>
 #include <Commdlg.h>
 
+#undef ERROR
+#pragma pop_macro ("ERROR")
+
 namespace WINDOWS::CONTROLS {
 
 	//const c8* MSFTEDIT_DLL_PATH { "riched20.dll" }; //
@@ -306,8 +309,6 @@ namespace WINDOWS::CONTROLS {
 #pragma pop_macro ("OUT")
 #undef interface
 #pragma pop_macro ("interface")
-#undef ERROR
-#pragma pop_macro ("ERROR")
 #undef max
 #pragma pop_macro ("max")
 #undef min
