@@ -65,8 +65,19 @@ struct pair {
 // Makes the way an argument is being passed into a function more visible.
 //
 #define REF &
-#define CEF const&
+#define PTR *
+#define CTR *const // cannot change the address in the function body, only value.
 #define CPY
+
+// OUTDATED - for_pointer_use this makes double pointers in asm code...
+// ------------------------------------------------------------------------------
+// u64* const& is not just stylistically redundant 
+// it's actually worse than u64* in terms of codegen, since it 
+// forces the pointer through memory instead of staying in a register. 
+// There's genuinely no reason to use it over plain u64* for a pointer argument.
+// just use 
+#define CEF const& 
+// ------------------------------------------------------------------------------
 
 // --- 
 
@@ -77,6 +88,8 @@ struct pair {
 //#ifndef interface
 //#define interface
 //#endif
+
+#define register
 
 // low/high --- value-operator ---------
 #define v64h(x) ((u16)(x >> 32))
