@@ -30,12 +30,12 @@
 
 #if defined(__clang__) || defined(__GNUC__)
 
-    codeblock bool cmpxchg16b_zf (
-        IT volatile u64* CEF ptr,
-        IT register u64  REF expL,
+    codeblock bool x_cmpxchg16b_zf (
+        IN register u64  REF desH,
         IT register u64  REF expH,
         IN register u64  REF desL,
-        IN register u64  REF desH
+        IT register u64  REF expL,
+        IT volatile u64* CEF ptr
     ) {
         register bool isEqual;
 
@@ -55,11 +55,11 @@
     }
 
     codeblock bool atomic_cmpxchg16b_zf (
-        IT volatile u64* CEF ptr,
-        IT register u64  REF expL,
+        IN register u64  REF desH,
         IT register u64  REF expH,
         IN register u64  REF desL,
-        IN register u64  REF desH
+        IT register u64  REF expL,
+        IT volatile u64* CEF ptr
     ) {
         register bool isEqual;
 
@@ -78,12 +78,12 @@
         return isEqual;
     }
 
-    codeblock void cmpxchg16b (
-        IT volatile u64* CEF ptr,
-        IT register u64  REF expL,
+    codeblock void x_cmpxchg16b (
+        IN register u64  REF desH,
         IT register u64  REF expH,
         IN register u64  REF desL,
-        IN register u64  REF desH
+        IT register u64  REF expL,
+        IT volatile u64* CEF ptr
     ) {
         __asm__ volatile (
             "cmpxchg16b %0"
@@ -97,11 +97,11 @@
     }
 
     codeblock void atomic_cmpxchg16b (
-        IT volatile u64* CEF ptr,
-        IT register u64  REF expL,
+        IN register u64  REF desH,
         IT register u64  REF expH,
         IN register u64  REF desL,
-        IN register u64  REF desH
+        IT register u64  REF expL,
+        IT volatile u64* CEF ptr
     ) {
         __asm__ volatile (
             "lock cmpxchg16b %0"
