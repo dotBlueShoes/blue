@@ -31,134 +31,145 @@
 #if defined(__clang__) || defined(__GNUC__)
 
     codeblock bool x_cmpxchg16b_zf (
-        IN register u64  REF desH,
-        IT register u64  REF expH,
-        IN register u64  REF desL,
-        IT register u64  REF expL,
-        IT volatile u64* CEF ptr
+        IN register u64 PTR b, // b 
+        IT volatile u64 PTR a, // a 
+        IT volatile u64 CTR R8 // value
     ) {
+        
+        register u64 RBX = b[0];
+        register u64 RCX = b[1];
+        register u64 RAX = a[0];
+        register u64 RDX = a[1];
         register bool isEqual;
 
         __asm__ volatile (
             "cmpxchg16b %1\n\t"
             "sete %0"
             : "=q"(isEqual),
-              "+m"(*ptr),
-              "+a"(expL),
-              "+d"(expH)
-            : "b"(desL),
-              "c"(desH)
+              "+m"(*R8),
+              "+a"(RAX),
+              "+d"(RDX)
+            : "b"(RBX),
+              "c"(RCX)
             : "cc", "memory"
         );
+
+        a[0] = RAX;
+        a[1] = RDX;
 
         return isEqual;
     }
 
     codeblock bool atomic_cmpxchg16b_zf (
-        IN register u64  REF desH,
-        IT register u64  REF expH,
-        IN register u64  REF desL,
-        IT register u64  REF expL,
-        IT volatile u64* CEF ptr
+        IN register u64 PTR b, // b 
+        IT register u64 PTR a, // a 
+        IT volatile u64 CTR R8 // value
     ) {
+        register u64 RBX = b[0];
+        register u64 RCX = b[1];
+        register u64 RAX = a[0];
+        register u64 RDX = a[1];
         register bool isEqual;
 
         __asm__ volatile (
             "lock cmpxchg16b %1\n\t"
             "sete %0"
             : "=q"(isEqual),
-              "+m"(*ptr),
-              "+a"(expL),
-              "+d"(expH)
-            : "b"(desL),
-              "c"(desH)
+              "+m"(*R8),
+              "+a"(RAX),
+              "+d"(RDX)
+            : "b"(RBX),
+              "c"(RCX)
             : "cc", "memory"
         );
+
+        a[0] = RAX;
+        a[1] = RDX;
 
         return isEqual;
     }
 
     codeblock void x_cmpxchg16b (
-        IN register u64  REF desH,
-        IT register u64  REF expH,
-        IN register u64  REF desL,
-        IT register u64  REF expL,
-        IT volatile u64* CEF ptr
+        IN register u64 PTR b, // b 
+        IT volatile u64 PTR a, // a 
+        IT volatile u64 CTR R8 // value
     ) {
+        register u64 RBX = b[0];
+        register u64 RCX = b[1];
+        register u64 RAX = a[0];
+        register u64 RDX = a[1];
+
         __asm__ volatile (
             "cmpxchg16b %0"
-            : "+m"(*ptr),
-              "+a"(expL),
-              "+d"(expH)
-            : "b"(desL),
-              "c"(desH)
+            : "+m"(*R8),
+              "+a"(RAX),
+              "+d"(RDX)
+            : "b"(RBX),
+              "c"(RCX)
             : "cc", "memory"
         );
+
+        a[0] = RAX;
+        a[1] = RDX;
     }
 
     codeblock void atomic_cmpxchg16b (
-        IN register u64  REF desH,
-        IT register u64  REF expH,
-        IN register u64  REF desL,
-        IT register u64  REF expL,
-        IT volatile u64* CEF ptr
+        IN register u64 PTR b, // b 
+        IT register u64 PTR a, // a 
+        IT volatile u64 CTR R8 // value
     ) {
+        register u64 RBX = b[0];
+        register u64 RCX = b[1];
+        register u64 RAX = a[0];
+        register u64 RDX = a[1];
+
         __asm__ volatile (
             "lock cmpxchg16b %0"
-            : "+m"(*ptr),
-              "+a"(expL),
-              "+d"(expH)
-            : "b"(desL),
-              "c"(desH)
+            : "+m"(*R8),
+              "+a"(RAX),
+              "+d"(RDX)
+            : "b"(RBX),
+              "c"(RCX)
             : "cc", "memory"
         );
+
+        a[0] = RAX;
+        a[1] = RDX;
     }
 
 #else
 
     COMPILERWARN ("missing cmpxchg16b_zf implementation!")
 
-    codeblock bool cmpxchg16b_zf (
-        IT volatile u64* CEF ptr,
-        IT register u64  REF expL,
-        IT register u64  REF expH,
-        IN register u64  REF desL,
-        IN register u64  REF desH
-    ) {
-        return false;
-    };
+    extern "C" bool x_cmpxchg16b_zf (
+        IN register u64 PTR RCX, // b 
+        IT volatile u64 PTR RDX, // a 
+        IT volatile u64 CTR R8   // value
+    );
 
     COMPILERWARN ("missing atomic_cmpxchg16b_zf implementation!")
 
     extern "C" bool atomic_cmpxchg16b_zf (
-        IT volatile u64* CEF ptr,
-        IT register u64  REF expL,
-        IT register u64  REF expH,
-        IN register u64  REF desL,
-        IN register u64  REF desH
-    ) {
-        return false;
-    };
+        IN register u64 PTR RCX, // b 
+        IN register u64 PTR RDX, // a 
+        IT volatile u64 CTR R8   // value
+    );
 
     COMPILERWARN ("missing cmpxchg16b implementation!")
 
     extern "C" void x_cmpxchg16b (
-        IN register u64 REF RCX, // b [1]
-        IT register u64 REF RDX, // a [1]
-        IN register u64 REF R8,  // b [0]
-        IT register u64 REF R9,  // a [o]
-        IT volatile u64 CTR VAL  // value 128bit -> 40+ bytes space before
+        IN register u64 PTR RCX, // b 
+        IT volatile u64 PTR RDX, // a 
+        IT volatile u64 CTR R8   // value
     );
 
     COMPILERWARN ("missing atomic_cmpxchg16b implementation!")
 
 
     extern "C" void atomic_cmpxchg16b (
-        IN register u64 REF RCX, // b [1]
-        IT register u64 REF RDX, // a [1]
-        IN register u64 REF R8,  // b [0]
-        IT register u64 REF R9,  // a [0]
-        IT volatile u64 CTR VAL  // value 128bit -> 40+ bytes space before
+        IN register u64 PTR RCX, // b 
+        IN register u64 PTR RDX, // a 
+        IT volatile u64 CTR R8   // value
     );
 
 #endif

@@ -3,28 +3,29 @@ OPTION EPILOGUE:NONE
 
 PUBLIC x_cmpxchg16b
 PUBLIC atomic_cmpxchg16b
+PUBLIC x_cmpxchg16b_zf
+PUBLIC atomic_cmpxchg16b_zf
 
 .CODE
 
 
 x_cmpxchg16b PROC
-    push rbx ; Non-volatile registers, and because we're pushing onto stack +8 offset.
+    push rbx
 
-    mov rcx, QWORD PTR [rcx] ; b-1
-    mov rbx, QWORD PTR [r8]  ; b-0
+    ; Store pointer addresses 
+    mov  r9, RCX ; b[0] & b[1]
+    mov r10, RDX ; a[0] & a[1]
 
-    ; Reuse r8 register as pointer-information because we need rdx register. ;
-    mov r8, rdx              
+    mov rcx, QWORD PTR [ r9 + 8] ; b-1
+    mov rbx, QWORD PTR [ r9]     ; b-0           
+    mov rdx, QWORD PTR [r10 + 8] ; a-1
+    mov rax, QWORD PTR [r10]     ; a-0
 
-    mov rdx, QWORD PTR [rdx] ; a-1
-    mov rax, QWORD PTR [r9]  ; a-0
-
-    mov r10, [rsp + 40 + 8]
-    cmpxchg16b QWORD PTR [r10]
+    cmpxchg16b QWORD PTR [r8]
 
     ; Make the value under pointer equar to rdx/rax. ;
-    mov QWORD PTR [r8], rdx
-    mov QWORD PTR [r9], rax
+    mov QWORD PTR [r10 + 8], rdx
+    mov QWORD PTR [r10], rax
 
     pop rbx
 
@@ -32,29 +33,84 @@ x_cmpxchg16b PROC
 x_cmpxchg16b ENDP
 
 
+; atomic because only shared memory touched is [r8]
 atomic_cmpxchg16b PROC
-    push rbx ; Non-volatile registers, and because we're pushing onto stack +8 offset.
+    push rbx
 
-    mov rcx, QWORD PTR [rcx] ; b-1
-    mov rbx, QWORD PTR [r8]  ; b-0
+    ; Store pointer addresses 
+    mov  r9, rcx ; b[0] & b[1]
+    mov r10, rdx ; a[0] & a[1]
 
-    ; Reuse r8 register as pointer-information because we need rdx register. ;
-    mov r8, rdx              
+    mov rcx, QWORD PTR [ r9 + 8] ; b-1
+    mov rbx, QWORD PTR [ r9]     ; b-0           
+    mov rdx, QWORD PTR [r10 + 8] ; a-1
+    mov rax, QWORD PTR [r10]     ; a-0
 
-    mov rdx, QWORD PTR [rdx] ; a-1
-    mov rax, QWORD PTR [r9]  ; a-0
-
-    mov r10, [rsp + 40 + 8]
-    lock cmpxchg16b QWORD PTR [r10]
+    lock cmpxchg16b QWORD PTR [r8]
 
     ; Make the value under pointer equar to rdx/rax. ;
-    mov QWORD PTR [r8], rdx
-    mov QWORD PTR [r9], rax
+    mov QWORD PTR [r10 + 8], rdx
+    mov QWORD PTR [r10], rax
 
     pop rbx
 
     ret
 atomic_cmpxchg16b ENDP
+
+
+x_cmpxchg16b_zf PROC
+    push rbx
+
+    ; Store pointer addresses 
+    mov  r9, RCX ; b[0] & b[1]
+    mov r10, RDX ; a[0] & a[1]
+
+    mov rcx, QWORD PTR [ r9 + 8] ; b-1
+    mov rbx, QWORD PTR [ r9]     ; b-0           
+    mov rdx, QWORD PTR [r10 + 8] ; a-1
+    mov rax, QWORD PTR [r10]     ; a-0
+
+    cmpxchg16b QWORD PTR [r8]
+
+    ; Make the value under pointer equar to rdx/rax. ;
+    mov QWORD PTR [r10 + 8], rdx
+    mov QWORD PTR [r10], rax
+
+    pop rbx
+
+    setz al
+    movzx rax, al
+
+    ret
+x_cmpxchg16b_zf ENDP
+
+
+; atomic because only shared memory touched is [r8]
+atomic_cmpxchg16b_zf PROC
+    push rbx
+
+    ; Store pointer addresses 
+    mov  r9, rcx ; b[0] & b[1]
+    mov r10, rdx ; a[0] & a[1]
+
+    mov rcx, QWORD PTR [ r9 + 8] ; b-1
+    mov rbx, QWORD PTR [ r9]     ; b-0           
+    mov rdx, QWORD PTR [r10 + 8] ; a-1
+    mov rax, QWORD PTR [r10]     ; a-0
+
+    lock cmpxchg16b QWORD PTR [r8]
+
+    ; Make the value under pointer equar to rdx/rax. ;
+    mov QWORD PTR [r10 + 8], rdx
+    mov QWORD PTR [r10], rax
+
+    pop rbx
+
+    setz al
+    movzx rax, al
+
+    ret
+atomic_cmpxchg16b_zf ENDP
 
 
 ;  8 bytes -> return address
