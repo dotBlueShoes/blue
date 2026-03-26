@@ -6,7 +6,7 @@
 #include <ctime>
 #include <chrono>
 //
-#include "types.hpp"
+#include "basetypes.hpp"
 
 namespace TIMESTAMP {
 

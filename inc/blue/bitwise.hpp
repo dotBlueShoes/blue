@@ -2,45 +2,59 @@
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
 #pragma once
-#include "types.hpp"
+#include "basetypes.hpp"
 
-// TODO BSAWP instruction ?
+namespace BITWISE {
 
-void ReverseBits8  ( OT u8  REF n );
-void ReverseBits16 ( OT u16 REF n );
-void ReverseBits32 ( OT u32 REF n );
-void ReverseBits64 ( OT u64 REF n );
+    void Reverse8  ( IT u8  REF value );
+    void Reverse16 ( IT u16 REF value );
+    void Reverse32 ( IT u32 REF value );
+    void Reverse64 ( IT u64 REF value );
 
 #ifdef BLUELIB_IMPLEMENTATION
 
-    void ReverseBits8  (OT u8  REF n) {
+    void Reverse8 ( IT u8  REF n ) {
         n = (n >> 1) & 0x55 | (n << 1) & 0xAA;
         n = (n >> 2) & 0x33 | (n << 2) & 0xCC;
         n = (n >> 4) & 0x0F | (n << 4) & 0xF0;
     }
 
-    void ReverseBits16 (OT u16 REF n) {
-        n = (n >> 1) & 0x5555 | (n << 1) & 0xAAAA;
-        n = (n >> 2) & 0x3333 | (n << 2) & 0xCCCC;
-        n = (n >> 4) & 0x0F0F | (n << 4) & 0xF0F0;
-        n = (n >> 8) | (n << 8);
-    }
+    #ifdef bswap16b
+        void Reverse16 ( IT u16 REF n ) { bswap16b (n); }
+    #else
+        void Reverse16 ( IT u16 REF n ) {
+            n = (n >> 1) & 0x5555 | (n << 1) & 0xAAAA;
+            n = (n >> 2) & 0x3333 | (n << 2) & 0xCCCC;
+            n = (n >> 4) & 0x0F0F | (n << 4) & 0xF0F0;
+            n = (n >> 8) | (n << 8);
+        }
+    #endif
 
-    void ReverseBits32 (OT u32 REF n) {
-        n = (n >>  1) & 0x55555555 | (n << 1) & 0xAAAAAAAA;
-        n = (n >>  2) & 0x33333333 | (n << 2) & 0xCCCCCCCC;
-        n = (n >>  4) & 0x0F0F0F0F | (n << 4) & 0xF0F0F0F0;
-        n = (n >>  8) & 0x00FF00FF | (n << 8) & 0xFF00FF00;
-        n = (n >> 16) | (n << 16);
-    }
+    #ifdef bswap32b
+        void Reverse32 ( IT u32 REF n ) { bswap32b (n); }
+    #else
+        void Reverse32 ( IT u32 REF n ) {
+            n = (n >>  1) & 0x55555555 | (n << 1) & 0xAAAAAAAA;
+            n = (n >>  2) & 0x33333333 | (n << 2) & 0xCCCCCCCC;
+            n = (n >>  4) & 0x0F0F0F0F | (n << 4) & 0xF0F0F0F0;
+            n = (n >>  8) & 0x00FF00FF | (n << 8) & 0xFF00FF00;
+            n = (n >> 16) | (n << 16);
+        }
+    #endif
 
-    void ReverseBits64 (OT u64 REF n) {
-        n = (n >>  1) & 0x5555555555555555ULL | (n <<  1) & 0xAAAAAAAAAAAAAAAAULL;
-        n = (n >>  2) & 0x3333333333333333ULL | (n <<  2) & 0xCCCCCCCCCCCCCCCCULL;
-        n = (n >>  4) & 0x0F0F0F0F0F0F0F0FULL | (n <<  4) & 0xF0F0F0F0F0F0F0F0ULL;
-        n = (n >>  8) & 0x00FF00FF00FF00FFULL | (n <<  8) & 0xFF00FF00FF00FF00ULL;
-        n = (n >> 16) & 0x0000FFFF0000FFFFULL | (n << 16) & 0xFFFF0000FFFF0000ULL;
-        n = (n >> 32) | (n << 32);
-    }
+    #ifdef bswap64b
+        void Reverse64 ( IT u64 REF n ) { bswap64b (n); }
+    #else
+        void Reverse64 ( IT u64 REF n ) {
+            n = (n >>  1) & 0x5555555555555555ULL | (n <<  1) & 0xAAAAAAAAAAAAAAAAULL;
+            n = (n >>  2) & 0x3333333333333333ULL | (n <<  2) & 0xCCCCCCCCCCCCCCCCULL;
+            n = (n >>  4) & 0x0F0F0F0F0F0F0F0FULL | (n <<  4) & 0xF0F0F0F0F0F0F0F0ULL;
+            n = (n >>  8) & 0x00FF00FF00FF00FFULL | (n <<  8) & 0xFF00FF00FF00FF00ULL;
+            n = (n >> 16) & 0x0000FFFF0000FFFFULL | (n << 16) & 0xFFFF0000FFFF0000ULL;
+            n = (n >> 32) | (n << 32);
+        }
+    #endif
 
 #endif
+
+};

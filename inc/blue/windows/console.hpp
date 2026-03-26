@@ -3,7 +3,7 @@
 //
 #pragma once
 
-#include "blue/types.hpp"
+#include "blue/basetypes.hpp"
 #include "blue/error.hpp"
 #include "windows.hpp"
 

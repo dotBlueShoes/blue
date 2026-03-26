@@ -3,7 +3,7 @@
 //
 #pragma once
 #include "../compilerlog.hpp"
-#include "../types.hpp"
+#include "../basetypes.hpp"
 
 //  TODO
 // Reading the ZF flag is optional. So doing so should also be in a seperate inline function.
@@ -139,7 +139,7 @@
 
 #else
 
-    COMPILERWARN ("missing cmpxchg16b_zf implementation!")
+    // COMPILERWARN ("missing cmpxchg16b_zf implementation!")
 
     extern "C" bool x_cmpxchg16b_zf (
         IN register u64 PTR RCX, // b 
@@ -147,7 +147,7 @@
         IT volatile u64 CTR R8   // value
     );
 
-    COMPILERWARN ("missing atomic_cmpxchg16b_zf implementation!")
+    // COMPILERWARN ("missing atomic_cmpxchg16b_zf implementation!")
 
     extern "C" bool atomic_cmpxchg16b_zf (
         IN register u64 PTR RCX, // b 
@@ -155,7 +155,7 @@
         IT volatile u64 CTR R8   // value
     );
 
-    COMPILERWARN ("missing cmpxchg16b implementation!")
+    // COMPILERWARN ("missing cmpxchg16b implementation!")
 
     extern "C" void x_cmpxchg16b (
         IN register u64 PTR RCX, // b 
@@ -163,8 +163,7 @@
         IT volatile u64 CTR R8   // value
     );
 
-    COMPILERWARN ("missing atomic_cmpxchg16b implementation!")
-
+    // COMPILERWARN ("missing atomic_cmpxchg16b implementation!")
 
     extern "C" void atomic_cmpxchg16b (
         IN register u64 PTR RCX, // b 

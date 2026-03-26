@@ -2,7 +2,7 @@
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
 #pragma once
-#include "../types.hpp"
+#include "../basetypes.hpp"
 #include "windows.hpp"
 
 #define GetProcMemory(procedureType, module, procedureName) { \

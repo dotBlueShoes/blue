@@ -2,7 +2,7 @@
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
 #pragma once
-#include "types.hpp"
+#include "basetypes.hpp"
 #include "lut.hpp"
 
 #include <cmath>
@@ -75,7 +75,7 @@ union u32r32 {
 };
 
 
-const r32 OUT_LUT [256] {
+const r32 OUT_LUT [256] { // 1024b
     0.000000000000000000f, 0.012271538285719925f, 0.024541228522912288f, 0.036807222941358830f,
     0.049067674327418015f, 0.061320736302208580f, 0.073564563599667430f, 0.085797312344439900f,
     0.098017140329560600f, 0.110222207293883060f, 0.122410675199216200f, 0.134580708507126170f,
@@ -169,7 +169,7 @@ void n16r32 ( IN u16 REF waveIn, OT r32 REF waveOt ); // 16bit Normal to 32bit R
             auto& real = *(u32r32*)&waveOt;
             const auto& base = *(const w8*)&waveIn;
 
-            #ifdef WAVE_NO_OPT
+            #ifdef BLUE_WAVE_NO_OPT
                 if (base.bitmask.phase) { real.value = (~base.bitmask.wave + 128 + 1) * STEP7; } // 129 -> 255
                 else { real.value = base.bitmask.wave * STEP7; } // for 0 -> 127
             #else
@@ -177,12 +177,12 @@ void n16r32 ( IN u16 REF waveIn, OT r32 REF waveOt ); // 16bit Normal to 32bit R
                 u8 wave 	= value & 0x7F;				// Extract wave 	(bits 0-6)
                 u8 phase 	= (value >> 7);				// Extract sign 	(bit  7  )
 
-                #ifdef WAVE_LUT_OPT
+                #ifdef BLUE_WAVE_LUT_OPT
                     u8 phasedWave = phase ? (128 - wave) : wave;	// Branchless
                     real.value = DIV128LUT[phasedWave];				// LUT
                 #else
                     u8 phasedWave = phase ? (~wave - (0x7F)) : wave; 	// Branchless
-                    #ifdef WAVE_BITWISE_SCALING_OPT
+                    #ifdef BLUE_WAVE_BITWISE_SCALING_OPT
                         // Weird. Might be faster.
                         real.value = (r32)(phasedWave << 17) * 0x1p-24f;
                     #else
@@ -204,7 +204,7 @@ void n16r32 ( IN u16 REF waveIn, OT r32 REF waveOt ); // 16bit Normal to 32bit R
         auto& real = *(u32r32*)&waveOt;
         const auto& base = *(const n8*)&waveIn;
 
-        #ifdef WAVE_NO_OPT
+        #ifdef BLUE_WAVE_NO_OPT
             if (base.bitmask.phase) { real.value = (~base.bitmask.wave + 64 + 1) * STEP6; } // 65 -> 127
             else { real.value = base.bitmask.wave * STEP6; } // for 0 -> 63
             real.base.bitmask.sign = base.bitmask.sign;
@@ -214,12 +214,12 @@ void n16r32 ( IN u16 REF waveIn, OT r32 REF waveOt ); // 16bit Normal to 32bit R
             u8 phase 	= (value >> 6) & 1;			// Extract phase 	(bit  6  )
             u8 sign 	= (value >> 7);				// Extract sign 	(bit  7  )
 
-            #ifdef WAVE_LUT_OPT
+            #ifdef BLUE_WAVE_LUT_OPT
                 u8 phasedWave = phase ? (64 - wave) : wave;		// Branchless
                 real.value = DIV64LUT[phasedWave];				// LUT
             #else
                 u8 phasedWave = phase ? (~wave - (0x80 + 0x40 - 1)) : wave; 	// Branchless
-                #ifdef WAVE_BITWISE_SCALING_OPT
+                #ifdef BLUE_WAVE_BITWISE_SCALING_OPT
                     // Weird. Might be faster.
                     real.value = (r32)(phasedWave << 18) * 0x1p-24f;
                 #else
@@ -243,7 +243,7 @@ void n16r32 ( IN u16 REF waveIn, OT r32 REF waveOt ); // 16bit Normal to 32bit R
         auto& real = *(u32r32*)&waveOt;
         const auto& base = *(w16*)&waveIn;
 
-        #ifdef WAVE_NO_OPT
+        #ifdef BLUE_WAVE_NO_OPT
             if (base.bitmask.phase) { real.value = (~base.bitmask.wave + 32768 + 1) * STEP15; } // 32769 -> 65 535
             else { real.value = base.bitmask.wave * STEP15; } // for 0 -> 32767
         #else
@@ -252,7 +252,7 @@ void n16r32 ( IN u16 REF waveIn, OT r32 REF waveOt ); // 16bit Normal to 32bit R
             u16 phase 	= (value >> 15);			// Extract sign 	(bit  15  )
 
             u16 phasedWave = phase ? (~wave - (0x7FFF)) : wave; 	// Branchless
-            #ifdef WAVE_BITWISE_SCALING_OPT
+            #ifdef BLUE_WAVE_BITWISE_SCALING_OPT
                 // Weird. Might be faster.
                 real.value = (r32)(phasedWave << 9) * 0x1p-24f;
             #else
@@ -272,7 +272,7 @@ void n16r32 ( IN u16 REF waveIn, OT r32 REF waveOt ); // 16bit Normal to 32bit R
         auto& real = *(u32r32*)&waveOt;
         const auto& base = *(n16*)&waveIn;
 
-        #ifdef WAVE_NO_OPT
+        #ifdef BLUE_WAVE_NO_OPT
             if (base.bitmask.phase) { real.value = (~base.bitmask.wave + 16384 + 1) * STEP14; } // 16385 -> 32767
             else { real.value = base.bitmask.wave * STEP14; } // for 0 -> 16383
             real.base.bitmask.sign = base.bitmask.sign;
@@ -283,7 +283,7 @@ void n16r32 ( IN u16 REF waveIn, OT r32 REF waveOt ); // 16bit Normal to 32bit R
             u16 sign 	= (value >> 15);			// Extract sign 	(bit  15  )
 
             u16 phasedWave = phase ? (~wave - (0x8000 + 0x4000 - 1)) : wave; 	// Branchless
-            #ifdef WAVE_BITWISE_SCALING_OPT
+            #ifdef BLUE_WAVE_BITWISE_SCALING_OPT
                 // Weird. Might be faster.
                 real.value = (r32)(phasedWave << 10) * 0x1p-24f;
             #else

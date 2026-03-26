@@ -2,7 +2,7 @@
 //  LICENSE: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 //
 #pragma once
-#include "types.hpp"
+#include "basetypes.hpp"
 
 const r32 DIV64LUT [64 + 1] {
     00.0f / 64.0f, // 0
